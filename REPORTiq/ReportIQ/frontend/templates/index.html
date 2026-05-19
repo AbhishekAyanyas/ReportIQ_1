@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REPORTiq - Home</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h1>📊 REPORTiq</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">🏠 Home</a></li>
+                    <li><a href="dashboard.html">📈 Dashboard</a></li>
+                    <li><a href="visualizations.html">📊 Visualizations</a></li>
+                    <li><a href="voice.html">🎤 Voice Upload</a></li>
+                    <li><a href="reports.html">📄 Reports</a></li>
+                    <li><a href="history.html">📋 History</a></li>
+                    <li><a href="settings.html">⚙️ Settings</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <div>
+                    <h2>Welcome to REPORTiq</h2>
+                    <p class="header-subtitle">Voice Transcription & Report Analysis Platform</p>
+                </div>
+            </header>
+
+            <!-- Feature Cards -->
+            <section class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">🎤</div>
+                    <h3>Voice Transcription</h3>
+                    <p>Convert audio files to text with high accuracy. Supports multiple audio formats.</p>
+                    <a href="voice.html" class="btn btn-primary" style="margin-top: 16px;">Upload Voice</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">📄</div>
+                    <h3>Report Analysis</h3>
+                    <p>Upload and analyze PDF, DOCX, and text documents. Extract key insights.</p>
+                    <a href="reports.html" class="btn btn-primary" style="margin-top: 16px;">Upload Report</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">📊</div>
+                    <h3>Dashboard</h3>
+                    <p>View analytics, transcription history, and analysis results in one place.</p>
+                    <a href="dashboard.html" class="btn btn-primary" style="margin-top: 16px;">Open Dashboard</a>
+                </div>
+            </section>
+
+            <!-- Getting Started Section -->
+            <section class="upload-section">
+                <h3>🚀 Getting Started</h3>
+                <p style="color: var(--text-light); margin-bottom: 24px;">
+                    REPORTiq provides intelligent voice transcription and document analysis. Choose an option below to begin:
+                </p>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
+                    <div style="padding: 20px; background: var(--bg-light); border-radius: 8px;">
+                        <h4 style="margin-bottom: 12px;">1️⃣ Upload Voice</h4>
+                        <p style="color: var(--text-light); font-size: 14px; margin-bottom: 12px;">
+                            Convert your audio files to text automatically.
+                        </p>
+                        <a href="voice.html" class="btn btn-primary">Go to Voice Upload</a>
+                    </div>
+
+                    <div style="padding: 20px; background: var(--bg-light); border-radius: 8px;">
+                        <h4 style="margin-bottom: 12px;">2️⃣ Upload Report</h4>
+                        <p style="color: var(--text-light); font-size: 14px; margin-bottom: 12px;">
+                            Analyze documents and extract insights.
+                        </p>
+                        <a href="reports.html" class="btn btn-primary">Go to Reports</a>
+                    </div>
+
+                    <div style="padding: 20px; background: var(--bg-light); border-radius: 8px;">
+                        <h4 style="margin-bottom: 12px;">3️⃣ View History</h4>
+                        <p style="color: var(--text-light); font-size: 14px; margin-bottom: 12px;">
+                            Check your previous uploads and results.
+                        </p>
+                        <a href="history.html" class="btn btn-primary">View History</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Info Section -->
+            <section class="upload-section">
+                <h3>ℹ️ Supported Formats</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                    <div>
+                        <h4 style="color: var(--primary); margin-bottom: 12px;">Audio Files</h4>
+                        <ul style="list-style: none; color: var(--text-light);">
+                            <li>✓ WAV</li>
+                            <li>✓ MP3</li>
+                            <li>✓ M4A</li>
+                            <li>✓ OGG</li>
+                            <li>✓ FLAC</li>
+                        </ul>
+                        <p style="font-size: 12px; margin-top: 12px; color: var(--text-light);">
+                            Max file size: 50MB
+                        </p>
+                    </div>
+
+                    <div>
+                        <h4 style="color: var(--primary); margin-bottom: 12px;">Documents</h4>
+                        <ul style="list-style: none; color: var(--text-light);">
+                            <li>✓ PDF</li>
+                            <li>✓ DOCX</li>
+                            <li>✓ TXT</li>
+                            <li>✓ XLSX</li>
+                        </ul>
+                        <p style="font-size: 12px; margin-top: 12px; color: var(--text-light);">
+                            Max file size: 50MB
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

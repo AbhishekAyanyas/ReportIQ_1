@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Test - ReportIQ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1A2332 0%, #0F1722 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .test-container {
+            background: rgba(35, 47, 62, 0.9);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            color: #4A90E2;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .test-section {
+            background: rgba(74, 144, 226, 0.1);
+            border: 2px solid #4A90E2;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .stars {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .star {
+            font-size: 3rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            user-select: none;
+        }
+
+        .star:hover {
+            transform: scale(1.3);
+        }
+
+        .star.active {
+            color: #FFD700;
+        }
+
+        button {
+            background: linear-gradient(135deg, #4A90E2, #357ABD);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1rem;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(74, 144, 226, 0.4);
+        }
+
+        .result {
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid #4CAF50;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .error {
+            background: rgba(244, 67, 54, 0.2);
+            border: 1px solid #F44336;
+        }
+
+        .info {
+            background: rgba(74, 144, 226, 0.2);
+            border: 1px solid #4A90E2;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .rating-display {
+            text-align: center;
+            font-size: 2rem;
+            color: #4A90E2;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 Feedback System Test</h1>
+
+        <div class="info">
+            <strong>Test Report ID:</strong> test_report_123
+        </div>
+
+        <div class="test-section">
+            <h3 style="margin-bottom: 1rem; color: #4A90E2;">Select Rating:</h3>
+            
+            <div class="stars" id="stars">
+                <span class="star" onclick="setRating(1)">☆</span>
+                <span class="star" onclick="setRating(2)">☆</span>
+                <span class="star" onclick="setRating(3)">☆</span>
+                <span class="star" onclick="setRating(4)">☆</span>
+                <span class="star" onclick="setRating(5)">☆</span>
+            </div>
+
+            <div class="rating-display" id="ratingDisplay">
+                No rating selected
+            </div>
+
+            <button onclick="testFeedbackSubmit()">
+                🚀 Test Submit Feedback
+            </button>
+
+            <button onclick="testGetFeedback()" style="margin-top: 0.5rem; background: linear-gradient(135deg, #4CAF50, #45a049);">
+                📊 Test Get Feedback
+            </button>
+        </div>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        let currentRating = 0;
+        const API_BASE = window.location.origin;
+        const TEST_REPORT_ID = 'test_report_123';
+
+        function setRating(rating) {
+            currentRating = rating;
+            const stars = document.querySelectorAll('.star');
+            
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('active');
+                    star.textContent = '★';
+                } else {
+                    star.classList.remove('active');
+                    star.textContent = '☆';
+                }
+            });
+
+            document.getElementById('ratingDisplay').textContent = `${rating} / 5 Stars`;
+        }
+
+        async function testFeedbackSubmit() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result';
+
+            if (currentRating === 0) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = '❌ <strong>Error:</strong> Please select a rating first!';
+                return;
+            }
+
+            resultDiv.innerHTML = '⏳ <strong>Testing...</strong> Submitting feedback...';
+
+            try {
+                const response = await fetch(`${API_BASE}/api/feedback/submit`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        report_id: TEST_REPORT_ID,
+                        rating: currentRating,
+                        comment: `Test feedback with ${currentRating} stars`,
+                        category: 'general'
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    resultDiv.innerHTML = `
+                        ✅ <strong>Success!</strong><br>
+                        <strong>Feedback ID:</strong> ${data.feedback_id}<br>
+                        <strong>Rating:</strong> ${data.rating}/5<br>
+                        <strong>Timestamp:</strong> ${data.timestamp}<br>
+                        <strong>Status:</strong> ${response.status}
+                    `;
+                } else {
+                    throw new Error(data.detail || 'Submit failed');
+                }
+
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `
+                    ❌ <strong>Error:</strong><br>
+                    ${error.message}<br>
+                    <small>Check console for details</small>
+                `;
+                console.error('Submit error:', error);
+            }
+        }
+
+        async function testGetFeedback() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result';
+            resultDiv.innerHTML = '⏳ <strong>Testing...</strong> Getting feedback...';
+
+            try {
+                const response = await fetch(`${API_BASE}/api/feedback/report/${TEST_REPORT_ID}`);
+                const data = await response.json();
+
+                if (response.ok) {
+                    resultDiv.innerHTML = `
+                        ✅ <strong>Success!</strong><br>
+                        <strong>Report ID:</strong> ${data.report_id}<br>
+                        <strong>Total Feedbacks:</strong> ${data.total_feedbacks}<br>
+                        <strong>Average Rating:</strong> ${data.average_rating.toFixed(1)}/5<br>
+                        <strong>Status:</strong> ${response.status}
+                    `;
+                } else {
+                    throw new Error('Get feedback failed');
+                }
+
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `
+                    ❌ <strong>Error:</strong><br>
+                    ${error.message}<br>
+                    <small>Check console for details</small>
+                `;
+                console.error('Get feedback error:', error);
+            }
+        }
+
+        // Test API connection on load
+        window.addEventListener('DOMContentLoaded', async function() {
+            console.log('Testing API connection...');
+            console.log('API Base:', API_BASE);
+            
+            try {
+                const response = await fetch(`${API_BASE}/health`);
+                const data = await response.json();
+                console.log('✅ API Health Check:', data);
+            } catch (error) {
+                console.error('❌ API Connection Failed:', error);
+            }
+        });
+    </script>
+</body>
+</html>

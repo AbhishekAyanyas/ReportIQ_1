@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REPORTiq - Visualizations</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .viz-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+ 
+        .chart-wrapper {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(51, 65, 85, 0.5);
+            border-radius: 12px;
+            padding: 24px;
+            position: relative;
+            min-height: 400px;
+            transition: all 0.3s;
+        }
+
+        .chart-wrapper:hover {
+            border-color: var(--primary);
+            box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.15);
+        }
+
+        .chart-wrapper h3 {
+            margin: 0 0 24px 0;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .chart-wrapper canvas {
+            max-height: 350px;
+        }
+
+        /* Voice & Feedback Section */
+        .interactive-section {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(51, 65, 85, 0.5);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+
+        .interactive-section h3 {
+            margin: 0 0 24px 0;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .voice-query-section {
+            margin-bottom: 36px;
+        }
+
+        .voice-query-section p {
+            color: var(--text-secondary);
+            margin: 0 0 16px 0;
+            font-size: 14px;
+        }
+
+        .voice-controls {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .voice-btn {
+            padding: 12px 20px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(59, 130, 246, 0.1) 100%);
+            border: 1.5px solid rgba(59, 130, 246, 0.4);
+            color: var(--primary);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .voice-btn:hover {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.3) 0%, rgba(59, 130, 246, 0.2) 100%);
+            border-color: var(--primary);
+            box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.2);
+        }
+
+        .voice-btn.active {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            border-color: #2563eb;
+        }
+
+        .voice-output {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(51, 65, 85, 0.5);
+            border-radius: 8px;
+            padding: 16px;
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-family: 'Monaco', monospace;
+            min-height: 60px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .feedback-section {
+            border-top: 2px solid rgba(51, 65, 85, 0.5);
+            padding-top: 36px;
+        }
+
+        .feedback-section h4 {
+            margin: 0 0 16px 0;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .feedback-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .feedback-input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(51, 65, 85, 0.5);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 13px;
+            resize: vertical;
+            min-height: 80px;
+            transition: all 0.3s;
+        }
+
+        .feedback-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(15, 23, 42, 0.95);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .feedback-input::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        .rating-group {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .rating-group label {
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .stars {
+            display: flex;
+            gap: 8px;
+        }
+
+        .star {
+            font-size: 24px;
+            cursor: pointer;
+            color: rgba(139, 92, 246, 0.3);
+            transition: all 0.2s;
+        }
+
+        .star:hover,
+        .star.active {
+            color: #8b5cf6;
+            transform: scale(1.2);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(16, 185, 129, 0.3);
+        }
+
+        .stats-mini {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .stat-mini {
+            background: rgba(51, 65, 85, 0.2);
+            border: 1px solid rgba(51, 65, 85, 0.5);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .stat-mini-value {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 0 0 4px 0;
+        }
+
+        .stat-mini-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0;
+        }
+
+        .year-selector {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .year-btn {
+            padding: 8px 16px;
+            background: transparent;
+            border: 1.5px solid rgba(51, 65, 85, 0.5);
+            color: var(--text-secondary);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .year-btn.active {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(59, 130, 246, 0.1) 100%);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .year-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .viz-container {
+                grid-template-columns: 1fr;
+            }
+
+            .chart-wrapper {
+                min-height: 300px;
+            }
+
+            .interactive-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h1>📊 REPORTiq</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">🏠 Home</a></li>
+                    <li><a href="dashboard.html">📈 Dashboard</a></li>
+                    <li><a href="voice.html">🎤 Voice Upload</a></li>
+                    <li><a href="reports.html">📄 Reports</a></li>
+                    <li><a href="history.html">📋 History</a></li>
+                    <li><a href="settings.html">⚙️ Settings</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div>
+                    <h2>Visualizations</h2>
+                    <p class="header-subtitle">
+                        <i class="fas fa-chart-line"></i>
+                        Charts, Plots & Analytics
+                    </p>
+                </div>
+            </header>
+
+            <!-- Stats Mini Cards -->
+            <div class="stats-mini">
+                <div class="stat-mini">
+                    <p class="stat-mini-value">₹24.5L</p>
+                    <p class="stat-mini-label">Total Revenue</p>
+                </div>
+                <div class="stat-mini">
+                    <p class="stat-mini-value">4,230</p>
+                    <p class="stat-mini-label">Customers</p>
+                </div>
+                <div class="stat-mini">
+                    <p class="stat-mini-value">156</p>
+                    <p class="stat-mini-label">Reports</p>
+                </div>
+                <div class="stat-mini">
+                    <p class="stat-mini-value">98.5%</p>
+                    <p class="stat-mini-label">Success Rate</p>
+                </div>
+            </div>
+
+            <!-- Year Selector -->
+            <div style="margin-bottom: 32px;">
+                <label style="display: block; margin-bottom: 12px; font-size: 13px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px;">
+                    Select Year
+                </label>
+                <div class="year-selector">
+                    <button class="year-btn active" data-year="2024">2024</button>
+                    <button class="year-btn" data-year="2023">2023</button>
+                    <button class="year-btn" data-year="2022">2022</button>
+                    <button class="year-btn" data-year="2021">2021</button>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="viz-container">
+                <!-- Revenue Trend Chart -->
+                <div class="chart-wrapper">
+                    <h3>
+                        <i class="fas fa-rupee-sign" style="color: var(--primary);"></i>
+                        Revenue Trend
+                    </h3>
+                    <canvas id="revenueChart"></canvas>
+                </div>
+
+                <!-- Customer Growth Chart -->
+                <div class="chart-wrapper">
+                    <h3>
+                        <i class="fas fa-users" style="color: var(--secondary);"></i>
+                        Customer Growth
+                    </h3>
+                    <canvas id="customerChart"></canvas>
+                </div>
+
+                <!-- Monthly Breakdown Pie -->
+                <div class="chart-wrapper">
+                    <h3>
+                        <i class="fas fa-chart-pie" style="color: var(--accent);"></i>
+                        Revenue Distribution
+                    </h3>
+                    <canvas id="pieChart"></canvas>
+                </div>
+
+                <!-- Year Comparison Bar -->
+                <div class="chart-wrapper">
+                    <h3>
+                        <i class="fas fa-chart-bar" style="color: var(--purple);"></i>
+                        Year-wise Analysis
+                    </h3>
+                    <canvas id="yearChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Voice Query & Feedback Section -->
+            <div class="interactive-section">
+                <!-- Voice Query Section -->
+                <div class="voice-query-section">
+                    <h3>
+                        <i class="fas fa-microphone" style="color: var(--primary);"></i>
+                        Voice Query
+                    </h3>
+                    <p>Ask questions about your data using voice commands. Our AI will analyze and provide insights.</p>
+                    
+                    <div class="voice-controls">
+                        <button class="voice-btn" id="startVoiceBtn">
+                            <i class="fas fa-microphone-alt"></i>
+                            Start Recording
+                        </button>
+                        <button class="voice-btn" id="stopVoiceBtn">
+                            <i class="fas fa-stop"></i>
+                            Stop Recording
+                        </button>
+                        <button class="voice-btn" id="clearVoiceBtn">
+                            <i class="fas fa-trash"></i>
+                            Clear
+                        </button>
+                    </div>
+
+                    <div class="voice-output" id="voiceOutput">
+                        Listening for voice input...
+                    </div>
+
+                    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                        <button class="btn btn-primary" onclick="askVoiceQuery('What is my total revenue?')">
+                            <i class="fas fa-question-circle"></i>
+                            Total Revenue
+                        </button>
+                        <button class="btn btn-primary" onclick="askVoiceQuery('Show customer growth')">
+                            <i class="fas fa-chart-line"></i>
+                            Customer Growth
+                        </button>
+                        <button class="btn btn-primary" onclick="askVoiceQuery('Best performing month')">
+                            <i class="fas fa-star"></i>
+                            Top Month
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Feedback Section -->
+                <div class="feedback-section">
+                    <h4>
+                        <i class="fas fa-comments" style="color: var(--secondary);"></i>
+                        Send Feedback
+                    </h4>
+                    <p style="color: var(--text-secondary); margin: 0 0 16px 0; font-size: 13px;">
+                        Help us improve by sharing your feedback and suggestions.
+                    </p>
+
+                    <div class="feedback-form">
+                        <div class="rating-group">
+                            <label>Rate Your Experience:</label>
+                            <div class="stars" id="ratingStars">
+                                <span class="star" data-rating="1">★</span>
+                                <span class="star" data-rating="2">★</span>
+                                <span class="star" data-rating="3">★</span>
+                                <span class="star" data-rating="4">★</span>
+                                <span class="star" data-rating="5">★</span>
+                            </div>
+                        </div>
+
+                        <textarea class="feedback-input" id="feedbackText" placeholder="Share your feedback, suggestions, or issues..."></textarea>
+
+                        <select class="feedback-input" id="feedbackCategory" style="resize: none; min-height: auto; padding: 10px 12px;">
+                            <option value="">Select Category</option>
+                            <option value="bug">🐛 Bug Report</option>
+                            <option value="feature">✨ Feature Request</option>
+                            <option value="improvement">🔧 Improvement</option>
+                            <option value="performance">⚡ Performance</option>
+                            <option value="other">📝 Other</option>
+                        </select>
+
+                        <button class="btn-submit" onclick="submitFeedback()">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Feedback
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script>
+        let revenueChart, customerChart, pieChart, yearChart;
+        let selectedYear = '2024';
+        let selectedRating = 0;
+        let isRecording = false;
+
+        // Initialize all charts
+        function initCharts() {
+            initRevenueChart();
+            initCustomerChart();
+            initPieChart();
+            initYearChart();
+        }
+
+        // Revenue Trend Chart
+        function initRevenueChart() {
+            const ctx = document.getElementById('revenueChart').getContext('2d');
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            
+            revenueChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: months,
+                    datasets: [{
+                        label: 'Monthly Revenue',
+                        data: months.map(() => Math.floor(Math.random() * 500000) + 100000),
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: '#3b82f6',
+                        pointBorderColor: '#0f172a',
+                        pointBorderWidth: 2,
+                        pointRadius: 5,
+                        pointHoverRadius: 7
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: { legend: { labels: { color: '#e2e8f0' } } },
+                    scales: {
+                        y: {
+                            ticks: { color: '#94a3b8', callback: v => '₹' + (v/100000).toFixed(1) + 'L' },
+                            grid: { color: 'rgba(51, 65, 85, 0.2)' }
+                        },
+                        x: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(51, 65, 85, 0.2)' } }
+                    }
+                }
+            });
+        }
+
+        // Customer Growth Chart
+        function initCustomerChart() {
+            const ctx = document.getElementById('customerChart').getContext('2d');
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            
+            customerChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: months,
+                    datasets: [{
+                        label: 'New Customers',
+                        data: months.map(() => Math.floor(Math.random() * 500) + 50),
+                        backgroundColor: '#10b981',
+                        borderRadius: 6,
+                        borderSkipped: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: { legend: { labels: { color: '#e2e8f0' } } },
+                    scales: {
+                        y: {
+                            ticks: { color: '#94a3b8' },
+                            grid: { color: 'rgba(51, 65, 85, 0.2)' }
+                        },
+                        x: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(51, 65, 85, 0.2)' } }
+                    }
+                }
+            });
+        }
+
+        // Revenue Distribution Pie Chart
+        function initPieChart() {
+            const ctx = document.getElementById('pieChart').getContext('2d');
+            
+            pieChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                    datasets: [{
+                        data: [2400, 1398, 9800, 3908],
+                        backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6'],
+                        borderColor: 'rgba(30, 41, 59, 0.8)',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: { 
+                        legend: { 
+                            labels: { color: '#e2e8f0', font: { size: 12 } },
+                            position: 'bottom'
+                        } 
+                    }
+                }
+            });
+        }
+
+        // Year Comparison Chart
+        function initYearChart() {
+            const ctx = document.getElementById('yearChart').getContext('2d');
+            
+            yearChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['2021', '2022', '2023', '2024'],
+                    datasets: [{
+                        label: 'Annual Revenue',
+                        data: [1200000, 1900000, 3000000, 4500000],
+                        backgroundColor: [
+                            'rgba(59, 130, 246, 0.6)',
+                            'rgba(16, 185, 129, 0.6)',
+                            'rgba(245, 158, 11, 0.6)',
+                            'rgba(139, 92, 246, 0.6)'
+                        ],
+                        borderColor: [
+                            '#3b82f6',
+                            '#10b981',
+                            '#f59e0b',
+                            '#8b5cf6'
+                        ],
+                        borderWidth: 2,
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: { legend: { labels: { color: '#e2e8f0' } } },
+                    scales: {
+                        y: {
+                            ticks: { color: '#94a3b8', callback: v => '₹' + (v/1000000).toFixed(1) + 'M' },
+                            grid: { color: 'rgba(51, 65, 85, 0.2)' }
+                        },
+                        x: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(51, 65, 85, 0.2)' } }
+                    }
+                }
+            });
+        }
+
+        // Voice Recording
+        document.getElementById('startVoiceBtn').addEventListener('click', () => {
+            isRecording = true;
+            document.getElementById('voiceOutput').textContent = '🎤 Recording... speak now';
+            document.getElementById('startVoiceBtn').classList.add('active');
+        });
+
+        document.getElementById('stopVoiceBtn').addEventListener('click', () => {
+            isRecording = false;
+            document.getElementById('voiceOutput').textContent = '✓ Recording saved';
+            document.getElementById('startVoiceBtn').classList.remove('active');
+        });
+
+        document.getElementById('clearVoiceBtn').addEventListener('click', () => {
+            document.getElementById('voiceOutput').textContent = 'Listening for voice input...';
+        });
+
+        // Voice Query
+        function askVoiceQuery(query) {
+            document.getElementById('voiceOutput').textContent = `Query: "${query}"\n\nAnalyzing data...`;
+            setTimeout(() => {
+                const responses = {
+                    'What is my total revenue?': '💰 Your total revenue for 2024 is ₹45,00,000 across 156 reports.',
+                    'Show customer growth': '📈 Customer growth: 1,200 → 4,230 customers (252% increase year-over-year)',
+                    'Best performing month': '⭐ Best performing month: October 2024 with ₹5,25,000 revenue and 680 customers'
+                };
+                document.getElementById('voiceOutput').textContent = responses[query] || 'Data analysis complete.';
+            }, 1500);
+        }
+
+        // Rating Stars
+        document.querySelectorAll('.star').forEach(star => {
+            star.addEventListener('click', () => {
+                selectedRating = star.dataset.rating;
+                document.querySelectorAll('.star').forEach(s => s.classList.remove('active'));
+                for (let i = 1; i <= selectedRating; i++) {
+                    document.querySelector(`.star[data-rating="${i}"]`).classList.add('active');
+                }
+            });
+        });
+
+        // Submit Feedback
+        function submitFeedback() {
+            const text = document.getElementById('feedbackText').value;
+            const category = document.getElementById('feedbackCategory').value;
+
+            if (!text || !category) {
+                alert('Please fill all fields');
+                return;
+            }
+
+            alert(`✓ Feedback submitted!\nCategory: ${category}\nRating: ${selectedRating}⭐\n\nThank you for your feedback!`);
+            document.getElementById('feedbackText').value = '';
+            document.getElementById('feedbackCategory').value = '';
+            selectedRating = 0;
+            document.querySelectorAll('.star').forEach(s => s.classList.remove('active'));
+        }
+
+        // Year Selection
+        document.querySelectorAll('.year-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.year-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                selectedYear = btn.dataset.year;
+            });
+        });
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', initCharts);
+    </script>
+</body>
+</html>

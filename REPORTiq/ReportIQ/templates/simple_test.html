@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Test</title>
+    <style>
+        body {
+            background: #1a1a1a;
+            color: white;
+            font-family: Arial;
+            padding: 50px;
+            text-align: center;
+        }
+        button {
+            background: #4A90E2;
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 20px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+        button:hover {
+            background: #357ABD;
+        }
+        .star {
+            font-size: 50px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        .star.active {
+            color: gold;
+        }
+        #result {
+            margin-top: 30px;
+            padding: 20px;
+            background: #333;
+            border-radius: 10px;
+            min-height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Simple Feedback Test</h1>
+    
+    <h2>Step 1: Select Rating</h2>
+    <div id="stars">
+        <span class="star" onclick="rate(1)">☆</span>
+        <span class="star" onclick="rate(2)">☆</span>
+        <span class="star" onclick="rate(3)">☆</span>
+        <span class="star" onclick="rate(4)">☆</span>
+        <span class="star" onclick="rate(5)">☆</span>
+    </div>
+    
+    <h2 id="rating">Rating: 0</h2>
+    
+    <h2>Step 2: Test API</h2>
+    <button onclick="testHealth()">1. Test Health Check</button>
+    <button onclick="testSubmit()">2. Submit Rating</button>
+    <button onclick="testGet()">3. Get Ratings</button>
+    
+    <div id="result">
+        <p>Click buttons above to test...</p>
+    </div>
+
+    <script>
+        let myRating = 0;
+
+        function rate(num) {
+            myRating = num;
+            document.getElementById('rating').textContent = 'Rating: ' + num;
+            
+            const stars = document.querySelectorAll('.star');
+            stars.forEach((star, i) => {
+                if (i < num) {
+                    star.classList.add('active');
+                    star.textContent = '★';
+                } else {
+                    star.classList.remove('active');
+                    star.textContent = '☆';
+                }
+            });
+        }
+
+        async function testHealth() {
+            const result = document.getElementById('result');
+            result.innerHTML = '<p>Testing health check...</p>';
+            
+            try {
+                const response = await fetch('/health');
+                const data = await response.json();
+                
+                result.innerHTML = `
+                    <h3 style="color: lime;">✅ SUCCESS!</h3>
+                    <p>Status: ${data.status}</p>
+                    <p>App: ${data.app_name}</p>
+                    <p>Version: ${data.version}</p>
+                `;
+            } catch (error) {
+                result.innerHTML = `
+                    <h3 style="color: red;">❌ ERROR!</h3>
+                    <p>${error.message}</p>
+                `;
+            }
+        }
+
+        async function testSubmit() {
+            const result = document.getElementById('result');
+            
+            if (myRating === 0) {
+                result.innerHTML = '<h3 style="color: orange;">⚠️ Please select a rating first!</h3>';
+                return;
+            }
+            
+            result.innerHTML = '<p>Submitting rating...</p>';
+            
+            try {
+                const response = await fetch('/api/feedback/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        report_id: 'test123',
+                        rating: myRating,
+                        comment: 'Test comment from simple test',
+                        category: 'general'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    result.innerHTML = `
+                        <h3 style="color: lime;">✅ FEEDBACK SUBMITTED!</h3>
+                        <p>ID: ${data.feedback_id}</p>
+                        <p>Rating: ${data.rating}/5</p>
+                        <p>Time: ${data.timestamp}</p>
+                    `;
+                } else {
+                    throw new Error(data.detail || 'Submit failed');
+                }
+                
+            } catch (error) {
+                result.innerHTML = `
+                    <h3 style="color: red;">❌ ERROR!</h3>
+                    <p>${error.message}</p>
+                `;
+                console.error('Error:', error);
+            }
+        }
+
+        async function testGet() {
+            const result = document.getElementById('result');
+            result.innerHTML = '<p>Getting ratings...</p>';
+            
+            try {
+                const response = await fetch('/api/feedback/report/test123');
+                const data = await response.json();
+                
+                result.innerHTML = `
+                    <h3 style="color: lime;">✅ GOT RATINGS!</h3>
+                    <p>Total: ${data.total_feedbacks}</p>
+                    <p>Average: ${data.average_rating.toFixed(1)}/5</p>
+                `;
+                
+            } catch (error) {
+                result.innerHTML = `
+                    <h3 style="color: red;">❌ ERROR!</h3>
+                    <p>${error.message}</p>
+                `;
+                console.error('Error:', error);
+            }
+        }
+
+        // Auto test health on load
+        window.onload = function() {
+            console.log('Page loaded!');
+            testHealth();
+        };
+    </script>
+</body>
+</html>

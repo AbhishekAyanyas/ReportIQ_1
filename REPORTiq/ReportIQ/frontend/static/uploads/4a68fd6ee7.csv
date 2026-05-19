@@ -1,0 +1,301 @@
+id,heart_rate,stress_level,emotion_label,facial_expression_score,eye_movement_intensity,sleep_hours,thought_pattern,focus_score,mood_stability,social_interaction_level,memory_load,voice_tone,motivation_score,relationship_state,mental_energy_level,music_type_preference,activity_type,brainwave_pattern,emotion_intensity,mindset_label,predicted_behavior
+1,98,1,Neutral,0.64,0.77,6.9,Balanced,0.05,0.78,7,1,Aggressive,0.92,In Relationship,1,Rock,Study,0.73,0.19,Negative,Emotionally unstable
+2,111,9,Happy,0.55,0.1,8.3,Logical,0.38,0.22,9,3,Calm,0.95,Heartbroken,7,Rock,Study,0.34,0.54,Neutral,Sad but stable
+3,88,6,Happy,0.09,0.33,4.8,Logical,0.36,0.14,3,2,Shaky,0.58,Single,3,Chill,Exercise,0.48,0.65,Mixed,Distracted
+4,74,3,Neutral,0.73,0.08,4.4,Logical,1.0,0.66,4,8,Calm,0.36,Heartbroken,5,Classical,Social Media,0.93,0.05,Negative,Focused
+5,102,4,Fear,0.55,0.75,3.6,Logical,0.45,0.0,8,6,Aggressive,0.79,Single,10,Romantic,Rest,0.33,0.95,Positive,Emotionally unstable
+6,67,4,Happy,0.45,0.27,5.3,Distracted,0.33,0.18,6,9,Excited,0.25,Single,4,Rock,Rest,0.47,0.84,Positive,Motivated & productive
+7,80,3,Neutral,0.91,0.9,6.9,Logical,0.58,0.03,5,8,Aggressive,0.56,In Relationship,10,Classical,Social Media,0.01,0.3,Negative,Sad but stable
+8,98,10,Love,0.3,0.53,3.8,Logical,0.09,0.17,4,10,Excited,0.36,Single,5,Romantic,Rest,0.08,0.08,Negative,Focused
+9,117,3,Angry,0.52,0.8,5.6,Logical,0.96,0.18,8,3,Excited,0.66,Single,5,Rock,Study,0.26,0.17,Negative,Motivated & productive
+10,78,3,Angry,0.7,0.98,3.1,Logical,0.63,0.39,1,5,Calm,0.24,In Relationship,6,Romantic,Rest,0.03,0.13,Neutral,Motivated & productive
+11,82,4,Happy,0.8,0.84,8.7,Balanced,0.75,0.4,9,7,Aggressive,0.19,Heartbroken,10,Classical,Rest,0.63,0.12,Positive,Distracted
+12,70,7,Fear,0.46,0.87,3.9,Logical,0.17,0.87,1,5,Shaky,0.92,Single,10,Sad,Social Media,0.43,0.52,Neutral,Distracted
+13,70,4,Fear,0.84,0.41,5.0,Balanced,0.41,0.51,8,8,Aggressive,0.1,In Relationship,6,Classical,Social Media,0.55,0.25,Neutral,Focused
+14,83,9,Love,0.77,0.55,3.1,Distracted,0.42,0.72,4,5,Aggressive,0.51,Single,8,Chill,Rest,0.17,0.36,Mixed,Motivated & productive
+15,112,1,Happy,0.07,0.25,6.0,Overthinking,0.82,0.1,9,1,Shaky,0.22,In Relationship,8,Romantic,Work,0.3,0.99,Positive,Distracted
+16,95,8,Angry,0.05,0.2,8.9,Logical,0.0,0.23,5,5,Calm,0.04,Heartbroken,9,Sad,Social Media,0.66,0.68,Positive,Sad but stable
+17,99,7,Fear,0.62,0.51,5.7,Overthinking,0.3,0.7,3,4,Aggressive,0.04,Heartbroken,8,Romantic,Exercise,0.97,0.95,Negative,Sad but stable
+18,83,2,Happy,0.35,0.6,4.3,Overthinking,0.98,0.05,9,6,Aggressive,0.18,In Relationship,2,Romantic,Exercise,0.05,0.14,Negative,Motivated & productive
+19,62,8,Confused,0.21,0.34,8.3,Distracted,0.47,0.49,9,3,Excited,0.87,In Relationship,10,Rock,Study,0.89,0.38,Mixed,Distracted
+20,81,1,Fear,0.58,0.57,8.5,Overthinking,0.38,0.6,4,5,Aggressive,0.28,In Relationship,1,Chill,Rest,0.58,0.55,Neutral,Focused
+21,112,9,Neutral,0.34,0.89,4.2,Balanced,0.12,0.6,4,2,Shaky,0.95,Heartbroken,10,Romantic,Work,0.56,0.08,Negative,Focused
+22,61,9,Confused,0.54,0.56,8.4,Overthinking,0.97,0.02,8,6,Excited,0.58,Single,2,Classical,Study,0.5,0.0,Negative,Focused
+23,83,2,Fear,0.46,0.72,9.6,Overthinking,0.02,0.32,2,6,Calm,0.44,Heartbroken,2,Classical,Rest,0.07,0.67,Positive,Sad but stable
+24,103,7,Angry,0.58,0.81,4.2,Overthinking,0.74,0.64,9,5,Excited,0.58,In Relationship,3,Rock,Social Media,0.09,0.64,Positive,Distracted
+25,89,10,Sad,0.4,0.99,8.4,Logical,0.77,0.15,6,6,Shaky,0.52,In Relationship,10,Chill,Exercise,0.6,0.41,Negative,Distracted
+26,97,3,Confused,0.7,0.6,8.0,Logical,0.24,0.7,9,7,Shaky,0.76,Heartbroken,7,Chill,Work,0.34,0.49,Positive,Sad but stable
+27,61,7,Love,0.18,0.81,6.3,Balanced,0.67,0.75,8,5,Excited,0.28,In Relationship,2,Classical,Exercise,0.92,0.42,Mixed,Focused
+28,119,10,Love,0.7,0.96,3.4,Balanced,0.09,0.98,7,1,Calm,0.35,Heartbroken,1,Sad,Social Media,0.41,0.02,Negative,Focused
+29,80,9,Angry,0.41,0.94,3.5,Logical,0.26,0.21,1,8,Excited,0.89,In Relationship,6,Rock,Rest,0.14,0.34,Positive,Motivated & productive
+30,92,4,Fear,0.87,0.14,9.0,Balanced,0.79,0.83,3,4,Calm,0.95,Single,9,Rock,Social Media,0.71,0.18,Mixed,Emotionally unstable
+31,71,1,Happy,0.52,0.41,9.9,Logical,0.86,0.52,2,9,Excited,0.89,Single,3,Classical,Social Media,0.29,0.1,Positive,Distracted
+32,117,2,Fear,0.97,0.32,7.7,Distracted,0.61,0.37,5,10,Shaky,0.42,In Relationship,6,Classical,Exercise,0.53,0.96,Positive,Distracted
+33,81,1,Angry,0.6,0.09,6.1,Overthinking,0.51,0.12,5,6,Aggressive,0.78,Heartbroken,3,Sad,Work,0.7,0.6,Positive,Distracted
+34,103,5,Love,0.22,0.63,7.5,Overthinking,0.16,0.74,5,1,Aggressive,0.48,Single,1,Sad,Social Media,0.9,0.73,Negative,Emotionally unstable
+35,84,5,Fear,0.82,0.74,7.2,Balanced,0.06,0.24,4,3,Calm,0.5,Heartbroken,5,Chill,Exercise,0.79,0.32,Neutral,Motivated & productive
+36,108,7,Love,0.35,0.85,5.7,Logical,0.12,0.37,5,3,Calm,0.2,In Relationship,10,Rock,Work,0.68,0.39,Positive,Emotionally unstable
+37,86,9,Confused,0.35,0.12,3.5,Logical,0.23,0.06,3,10,Calm,0.59,Heartbroken,4,Rock,Rest,0.68,0.24,Mixed,Focused
+38,118,9,Happy,0.03,0.88,8.8,Balanced,0.34,0.8,1,4,Shaky,0.19,Single,7,Classical,Rest,0.95,0.1,Negative,Focused
+39,101,3,Confused,0.55,0.64,5.6,Logical,0.38,0.77,5,6,Excited,0.33,Heartbroken,6,Chill,Study,0.3,0.18,Negative,Distracted
+40,87,3,Love,0.53,0.7,8.7,Distracted,0.35,0.73,9,7,Shaky,0.86,Heartbroken,10,Rock,Exercise,0.0,0.8,Mixed,Sad but stable
+41,119,3,Love,0.36,0.91,4.8,Overthinking,0.24,0.3,9,10,Aggressive,0.21,In Relationship,7,Chill,Work,0.27,0.68,Positive,Distracted
+42,75,4,Sad,0.89,0.62,3.0,Balanced,0.51,0.17,4,4,Calm,0.07,In Relationship,5,Chill,Social Media,0.22,0.55,Neutral,Sad but stable
+43,74,8,Sad,0.13,0.34,4.1,Balanced,0.83,0.64,3,6,Excited,0.07,In Relationship,4,Classical,Rest,0.66,0.48,Positive,Emotionally unstable
+44,106,6,Confused,0.33,0.83,6.3,Logical,0.28,0.5,1,1,Aggressive,0.94,Single,7,Chill,Work,0.63,0.92,Mixed,Focused
+45,110,8,Neutral,0.32,0.36,9.6,Balanced,0.94,0.18,2,8,Aggressive,0.51,Single,7,Sad,Exercise,0.59,0.07,Negative,Sad but stable
+46,103,1,Confused,0.09,0.03,3.7,Distracted,0.87,0.69,8,7,Aggressive,0.41,In Relationship,6,Sad,Study,0.02,0.28,Neutral,Emotionally unstable
+47,114,8,Sad,0.48,0.83,9.0,Logical,0.16,0.99,1,9,Shaky,0.81,In Relationship,8,Romantic,Rest,0.73,0.35,Negative,Focused
+48,111,4,Love,0.69,0.35,6.7,Logical,0.79,0.75,8,3,Calm,0.84,Single,4,Classical,Work,0.32,0.78,Mixed,Sad but stable
+49,116,1,Angry,0.51,0.77,8.8,Logical,0.57,0.74,7,2,Aggressive,0.33,Single,10,Romantic,Work,0.67,0.99,Positive,Distracted
+50,62,8,Confused,0.16,0.36,5.1,Logical,0.57,0.95,8,1,Calm,0.69,Single,5,Sad,Work,0.56,0.24,Neutral,Distracted
+51,96,4,Love,0.38,0.86,8.9,Distracted,0.39,0.2,6,3,Shaky,0.77,Single,4,Romantic,Exercise,0.34,0.87,Negative,Distracted
+52,110,6,Angry,0.0,0.22,8.4,Logical,0.5,0.57,9,5,Aggressive,0.65,In Relationship,1,Classical,Exercise,0.13,0.83,Negative,Emotionally unstable
+53,66,8,Angry,0.87,0.97,4.6,Balanced,0.4,0.98,3,2,Shaky,0.15,Single,8,Classical,Exercise,0.09,0.22,Negative,Distracted
+54,80,4,Sad,0.08,0.78,3.9,Distracted,0.54,0.17,10,3,Shaky,0.88,In Relationship,1,Chill,Social Media,0.83,0.4,Positive,Motivated & productive
+55,68,3,Confused,0.6,0.11,9.1,Overthinking,0.63,0.7,4,4,Calm,0.54,Heartbroken,5,Rock,Work,0.92,0.41,Neutral,Focused
+56,98,9,Fear,0.99,0.57,9.7,Overthinking,0.67,0.59,6,7,Aggressive,0.28,Heartbroken,6,Chill,Rest,0.65,0.98,Positive,Emotionally unstable
+57,77,3,Happy,0.54,0.99,3.2,Balanced,0.53,0.59,8,3,Shaky,0.43,Single,6,Classical,Exercise,0.1,0.18,Positive,Distracted
+58,63,9,Sad,0.92,0.47,8.1,Balanced,0.72,0.7,5,9,Aggressive,0.04,Heartbroken,5,Sad,Exercise,0.4,0.8,Positive,Focused
+59,84,2,Sad,0.24,0.18,9.4,Distracted,0.14,0.93,3,8,Calm,0.13,Heartbroken,3,Sad,Work,0.73,0.33,Mixed,Sad but stable
+60,119,2,Fear,0.76,0.48,9.0,Overthinking,0.21,0.78,6,4,Shaky,0.77,Heartbroken,5,Chill,Exercise,0.78,0.73,Mixed,Distracted
+61,73,2,Happy,0.53,0.51,9.8,Overthinking,0.82,0.06,4,1,Calm,0.0,Single,8,Classical,Social Media,0.12,0.42,Mixed,Focused
+62,109,6,Love,0.72,0.74,8.3,Overthinking,0.32,0.85,9,1,Aggressive,0.42,Single,2,Sad,Social Media,0.0,0.58,Neutral,Motivated & productive
+63,117,3,Neutral,0.06,0.7,6.1,Overthinking,0.02,0.23,3,1,Aggressive,0.52,Heartbroken,6,Classical,Exercise,0.71,0.83,Positive,Sad but stable
+64,68,9,Confused,0.15,0.4,5.2,Overthinking,0.15,0.38,4,1,Calm,0.05,In Relationship,9,Sad,Work,0.36,0.8,Positive,Motivated & productive
+65,85,4,Neutral,0.13,0.22,5.2,Logical,0.22,0.46,7,8,Excited,0.97,Heartbroken,8,Classical,Work,0.25,0.87,Mixed,Focused
+66,112,1,Love,0.69,0.65,8.1,Balanced,0.96,0.48,7,3,Shaky,0.23,Single,8,Romantic,Work,0.01,0.06,Positive,Motivated & productive
+67,61,4,Sad,0.84,0.42,8.2,Logical,0.57,0.44,4,6,Aggressive,0.3,Single,8,Classical,Study,0.54,0.69,Positive,Focused
+68,79,1,Happy,0.75,0.13,4.4,Overthinking,0.93,0.94,6,3,Aggressive,0.3,Single,7,Classical,Exercise,0.85,0.14,Negative,Focused
+69,87,5,Sad,0.03,0.9,9.1,Distracted,0.58,0.71,3,5,Shaky,0.23,Heartbroken,8,Chill,Work,0.96,0.42,Positive,Motivated & productive
+70,106,4,Angry,0.87,0.69,8.0,Distracted,0.48,0.63,6,7,Calm,0.0,In Relationship,6,Romantic,Social Media,0.57,0.55,Negative,Focused
+71,119,8,Sad,0.35,0.68,6.9,Overthinking,0.31,0.05,2,2,Calm,0.73,Single,2,Rock,Rest,0.51,0.4,Positive,Distracted
+72,66,8,Sad,0.4,0.82,6.3,Overthinking,0.61,0.9,8,6,Calm,0.97,Single,2,Chill,Rest,0.09,0.52,Neutral,Focused
+73,103,7,Love,0.1,0.53,6.8,Distracted,0.14,0.91,2,6,Excited,0.22,Heartbroken,8,Rock,Work,0.55,1.0,Mixed,Emotionally unstable
+74,67,3,Love,0.74,0.82,4.1,Logical,0.9,0.78,7,3,Excited,0.66,In Relationship,1,Sad,Rest,0.38,0.14,Negative,Focused
+75,106,1,Love,0.18,0.5,4.4,Logical,0.83,0.01,9,6,Aggressive,0.74,Heartbroken,6,Rock,Rest,0.61,0.68,Mixed,Emotionally unstable
+76,94,1,Neutral,0.56,0.07,3.6,Overthinking,0.32,0.06,1,10,Calm,0.85,Single,6,Classical,Study,0.39,0.4,Negative,Focused
+77,73,3,Angry,0.84,0.41,4.1,Logical,0.95,0.23,8,10,Shaky,0.42,In Relationship,4,Rock,Social Media,0.24,0.13,Negative,Focused
+78,76,6,Love,0.09,0.5,6.2,Distracted,0.83,0.13,7,5,Aggressive,0.3,In Relationship,10,Chill,Social Media,0.09,0.16,Negative,Motivated & productive
+79,95,7,Happy,0.54,0.72,6.7,Logical,0.67,0.4,6,2,Shaky,0.33,Single,3,Chill,Study,0.31,0.95,Neutral,Distracted
+80,109,6,Neutral,0.23,0.11,3.1,Overthinking,0.12,0.92,6,9,Aggressive,0.71,In Relationship,3,Rock,Study,0.1,0.88,Positive,Distracted
+81,99,6,Fear,0.34,0.14,8.6,Distracted,0.48,0.47,6,8,Excited,0.82,In Relationship,1,Chill,Rest,0.18,0.91,Negative,Sad but stable
+82,63,6,Happy,0.47,0.26,5.1,Logical,0.51,0.01,9,3,Aggressive,0.18,Heartbroken,3,Chill,Exercise,0.99,0.99,Neutral,Motivated & productive
+83,61,3,Confused,0.36,0.27,9.4,Balanced,0.23,0.28,2,8,Excited,0.37,Single,4,Rock,Rest,0.44,0.21,Negative,Motivated & productive
+84,65,6,Confused,0.65,0.73,9.8,Distracted,0.08,0.04,1,9,Aggressive,0.9,Single,5,Romantic,Study,0.53,0.36,Positive,Distracted
+85,113,8,Happy,0.48,0.25,4.3,Distracted,0.78,0.04,6,3,Calm,0.81,Single,3,Romantic,Social Media,0.87,0.67,Negative,Motivated & productive
+86,101,2,Love,0.58,0.63,6.2,Balanced,0.12,0.28,10,3,Shaky,0.98,Single,6,Sad,Rest,1.0,0.48,Neutral,Distracted
+87,63,5,Fear,0.74,0.49,3.0,Balanced,0.59,0.28,8,2,Calm,0.75,Single,5,Chill,Exercise,0.58,0.42,Positive,Motivated & productive
+88,113,1,Fear,0.56,0.57,7.2,Distracted,0.94,0.79,3,8,Aggressive,0.39,In Relationship,3,Rock,Rest,0.81,0.36,Neutral,Focused
+89,88,1,Neutral,0.59,0.84,7.3,Balanced,0.88,0.97,10,10,Aggressive,0.59,Heartbroken,6,Chill,Work,0.33,0.59,Positive,Distracted
+90,77,5,Fear,0.56,0.4,4.7,Overthinking,0.28,0.37,1,1,Aggressive,0.66,Single,6,Classical,Rest,0.31,0.58,Positive,Distracted
+91,85,3,Confused,0.38,0.77,6.9,Overthinking,0.85,0.43,9,8,Excited,0.08,Heartbroken,8,Chill,Study,0.4,0.16,Mixed,Emotionally unstable
+92,103,4,Angry,0.34,0.42,4.6,Overthinking,0.0,0.84,1,7,Shaky,0.54,Heartbroken,2,Chill,Social Media,0.67,0.47,Mixed,Motivated & productive
+93,93,3,Love,0.9,0.35,4.1,Distracted,0.02,0.27,3,7,Shaky,0.71,In Relationship,1,Romantic,Social Media,0.68,0.55,Mixed,Motivated & productive
+94,69,1,Fear,0.61,0.96,7.6,Balanced,0.6,0.16,8,3,Aggressive,0.17,Single,4,Rock,Study,0.32,0.57,Positive,Distracted
+95,95,1,Neutral,0.24,0.18,5.3,Balanced,0.36,0.85,3,1,Aggressive,0.78,In Relationship,7,Chill,Work,0.13,0.21,Negative,Focused
+96,73,5,Confused,0.5,0.09,7.1,Logical,0.39,0.05,4,4,Excited,0.58,Single,10,Romantic,Study,0.63,0.74,Neutral,Focused
+97,90,6,Angry,0.33,0.77,6.0,Logical,0.56,0.62,8,9,Calm,0.95,In Relationship,3,Sad,Rest,0.13,0.03,Neutral,Focused
+98,107,3,Sad,0.93,0.07,9.9,Balanced,0.19,0.56,1,5,Calm,0.04,Heartbroken,3,Romantic,Study,0.58,0.35,Neutral,Motivated & productive
+99,74,9,Sad,0.01,0.84,4.0,Balanced,0.21,0.35,6,1,Shaky,0.27,Single,5,Romantic,Study,0.69,0.78,Mixed,Emotionally unstable
+100,67,5,Angry,0.23,0.44,6.3,Balanced,0.48,0.32,1,5,Excited,0.6,Heartbroken,5,Romantic,Work,0.7,0.56,Positive,Distracted
+101,73,8,Confused,0.37,0.92,7.8,Distracted,0.75,0.77,1,8,Aggressive,0.3,Heartbroken,10,Chill,Rest,0.75,0.26,Mixed,Sad but stable
+102,82,1,Neutral,0.49,0.72,5.8,Balanced,0.62,0.09,8,8,Shaky,0.71,In Relationship,3,Chill,Exercise,0.87,0.69,Negative,Emotionally unstable
+103,119,5,Angry,0.85,0.61,9.8,Logical,0.3,0.24,4,5,Excited,0.76,Single,9,Sad,Exercise,0.5,0.57,Positive,Sad but stable
+104,116,3,Love,0.09,0.95,8.1,Distracted,0.43,0.73,1,9,Calm,0.1,Heartbroken,4,Classical,Social Media,0.73,0.8,Neutral,Emotionally unstable
+105,99,1,Love,0.81,0.4,7.6,Balanced,0.17,0.55,10,1,Excited,0.51,In Relationship,3,Classical,Study,0.62,0.74,Mixed,Focused
+106,80,4,Sad,0.06,0.95,8.3,Logical,0.07,0.13,7,4,Calm,0.51,Single,2,Classical,Social Media,0.19,0.61,Mixed,Motivated & productive
+107,75,5,Fear,0.84,0.14,9.7,Distracted,0.78,0.88,5,3,Excited,0.37,Single,10,Sad,Work,0.03,0.49,Negative,Sad but stable
+108,104,7,Neutral,0.05,0.48,9.4,Balanced,0.27,0.39,5,2,Shaky,0.93,Heartbroken,9,Classical,Exercise,0.28,0.13,Negative,Emotionally unstable
+109,77,1,Sad,0.02,0.27,8.1,Balanced,0.18,0.83,1,8,Calm,0.83,Single,4,Classical,Study,0.44,0.26,Mixed,Motivated & productive
+110,106,3,Fear,0.7,0.54,8.2,Balanced,0.69,0.79,10,7,Shaky,0.7,Heartbroken,3,Romantic,Work,0.62,0.42,Negative,Sad but stable
+111,112,2,Fear,1.0,0.16,4.0,Distracted,0.62,0.62,6,9,Shaky,0.71,Single,7,Chill,Work,0.85,0.6,Neutral,Distracted
+112,83,9,Love,0.9,0.84,3.7,Logical,0.63,0.49,9,2,Calm,0.46,In Relationship,8,Chill,Study,0.2,0.51,Negative,Emotionally unstable
+113,85,10,Confused,0.58,0.85,7.0,Logical,0.23,0.98,9,4,Calm,0.92,Heartbroken,2,Romantic,Work,0.13,0.29,Negative,Distracted
+114,84,6,Happy,0.92,0.96,3.1,Overthinking,0.23,0.14,8,6,Aggressive,0.69,Heartbroken,7,Romantic,Study,0.96,0.01,Mixed,Focused
+115,119,10,Confused,0.01,0.15,6.4,Balanced,0.22,0.73,5,3,Aggressive,0.73,Single,5,Romantic,Study,0.11,0.5,Mixed,Distracted
+116,119,3,Happy,0.98,0.62,4.5,Overthinking,0.17,0.19,1,8,Aggressive,0.86,Single,5,Chill,Rest,0.48,0.29,Positive,Distracted
+117,119,8,Angry,0.49,0.47,5.4,Overthinking,0.66,0.34,9,3,Shaky,0.27,Heartbroken,3,Classical,Social Media,0.59,0.73,Positive,Emotionally unstable
+118,104,8,Love,0.72,0.34,8.4,Logical,0.85,0.31,1,2,Shaky,0.81,Single,5,Romantic,Work,0.54,0.02,Mixed,Focused
+119,100,2,Fear,0.82,0.35,9.6,Distracted,0.72,0.95,8,3,Aggressive,0.2,In Relationship,2,Sad,Work,0.09,0.58,Negative,Distracted
+120,88,6,Neutral,0.72,0.41,3.5,Distracted,0.79,0.97,5,6,Shaky,0.35,Single,4,Romantic,Rest,0.06,0.94,Negative,Motivated & productive
+121,74,7,Happy,0.54,0.7,6.7,Logical,0.4,0.18,3,2,Shaky,0.34,In Relationship,6,Rock,Rest,0.11,0.17,Positive,Sad but stable
+122,104,2,Confused,0.48,0.6,9.2,Distracted,0.65,0.02,7,8,Calm,0.98,In Relationship,1,Romantic,Rest,0.59,0.47,Positive,Distracted
+123,60,10,Fear,0.84,0.46,3.6,Overthinking,0.35,0.72,7,1,Calm,0.86,In Relationship,10,Chill,Exercise,0.54,0.09,Positive,Focused
+124,84,2,Happy,0.21,0.08,8.8,Balanced,0.53,0.42,9,7,Shaky,0.7,In Relationship,4,Romantic,Exercise,0.23,0.63,Neutral,Distracted
+125,66,10,Happy,0.97,0.08,5.5,Logical,0.48,0.09,7,2,Aggressive,0.73,In Relationship,6,Rock,Exercise,0.64,0.55,Neutral,Sad but stable
+126,68,1,Happy,0.71,0.0,5.3,Balanced,0.18,0.68,3,10,Excited,0.56,Single,9,Sad,Study,0.82,0.41,Positive,Focused
+127,83,8,Neutral,0.2,0.97,9.8,Distracted,0.39,0.55,1,6,Aggressive,0.95,In Relationship,2,Classical,Work,0.04,0.52,Negative,Emotionally unstable
+128,60,1,Love,0.74,0.01,4.4,Balanced,0.96,0.98,8,2,Excited,0.5,Single,7,Romantic,Social Media,0.5,0.9,Positive,Focused
+129,103,9,Neutral,0.53,0.1,7.9,Distracted,0.25,0.23,3,2,Aggressive,0.38,In Relationship,6,Rock,Study,0.69,0.2,Neutral,Emotionally unstable
+130,67,6,Sad,0.71,0.31,8.8,Distracted,0.13,0.4,8,10,Calm,0.16,Heartbroken,2,Rock,Work,0.25,0.02,Negative,Focused
+131,83,7,Fear,0.77,0.81,3.3,Overthinking,0.42,0.54,8,8,Shaky,0.79,In Relationship,8,Sad,Work,0.31,0.86,Neutral,Sad but stable
+132,70,10,Love,0.09,0.96,7.7,Distracted,0.79,0.79,5,2,Shaky,0.73,Heartbroken,7,Chill,Rest,0.61,0.58,Negative,Sad but stable
+133,110,7,Love,0.51,0.79,9.7,Overthinking,0.58,0.55,1,7,Calm,0.38,In Relationship,5,Romantic,Rest,0.9,0.89,Neutral,Focused
+134,76,10,Love,0.93,0.69,3.9,Overthinking,0.68,0.61,10,3,Excited,0.03,In Relationship,5,Rock,Study,0.81,0.6,Negative,Distracted
+135,67,3,Confused,0.32,0.52,9.3,Overthinking,0.19,0.23,7,8,Excited,0.84,In Relationship,7,Sad,Rest,0.58,0.81,Negative,Sad but stable
+136,94,2,Love,0.59,0.09,7.2,Logical,0.62,0.85,10,7,Excited,0.01,Heartbroken,9,Classical,Work,0.73,0.43,Negative,Emotionally unstable
+137,94,9,Neutral,0.37,0.96,7.3,Logical,0.32,0.43,5,8,Calm,0.7,Heartbroken,9,Rock,Rest,0.36,0.75,Negative,Emotionally unstable
+138,92,8,Love,0.45,0.76,7.3,Distracted,0.83,0.14,8,7,Excited,0.97,In Relationship,9,Sad,Exercise,0.64,0.91,Mixed,Motivated & productive
+139,118,10,Angry,0.55,0.64,5.1,Overthinking,0.63,0.66,9,6,Calm,0.44,Single,6,Chill,Rest,0.47,0.57,Neutral,Emotionally unstable
+140,64,7,Fear,0.55,0.76,9.5,Logical,0.2,0.22,7,7,Aggressive,0.23,In Relationship,10,Chill,Work,0.19,0.18,Neutral,Motivated & productive
+141,101,9,Love,0.2,0.72,9.6,Overthinking,0.06,0.1,7,5,Aggressive,0.7,Heartbroken,6,Rock,Study,0.7,0.27,Mixed,Focused
+142,98,4,Fear,0.68,0.64,7.4,Balanced,0.04,0.86,1,7,Calm,0.82,In Relationship,3,Rock,Social Media,0.56,0.2,Negative,Focused
+143,117,4,Angry,0.09,0.98,8.5,Balanced,0.37,0.46,4,1,Shaky,0.55,Heartbroken,1,Romantic,Rest,0.36,0.25,Negative,Focused
+144,100,1,Angry,0.14,0.9,7.3,Balanced,0.27,0.75,2,1,Aggressive,0.97,Heartbroken,7,Sad,Work,0.91,0.31,Neutral,Distracted
+145,87,8,Fear,0.0,0.65,6.4,Distracted,0.65,0.29,2,9,Excited,0.05,Heartbroken,4,Rock,Social Media,0.02,0.56,Mixed,Distracted
+146,66,3,Happy,0.12,0.69,7.6,Overthinking,0.5,0.79,2,5,Calm,0.5,In Relationship,1,Romantic,Social Media,0.32,0.59,Negative,Motivated & productive
+147,68,7,Sad,0.47,0.05,6.9,Balanced,0.27,0.11,4,5,Excited,0.72,Heartbroken,8,Romantic,Exercise,0.06,0.43,Negative,Emotionally unstable
+148,67,2,Confused,0.61,0.67,7.2,Logical,0.15,0.36,1,3,Excited,0.86,Heartbroken,6,Rock,Social Media,0.77,0.62,Negative,Emotionally unstable
+149,71,2,Happy,0.79,0.04,8.5,Balanced,0.13,0.98,4,5,Shaky,0.18,In Relationship,6,Chill,Work,0.7,0.08,Positive,Focused
+150,93,7,Happy,0.11,0.59,6.4,Balanced,0.86,0.79,2,3,Excited,0.8,Heartbroken,2,Sad,Work,0.33,0.09,Mixed,Sad but stable
+151,92,6,Neutral,0.85,1.0,3.3,Balanced,0.24,0.5,5,9,Shaky,0.55,In Relationship,1,Sad,Rest,0.68,0.17,Negative,Distracted
+152,107,3,Confused,0.75,0.56,4.1,Distracted,0.65,0.34,3,9,Aggressive,0.4,Heartbroken,2,Chill,Rest,0.4,0.52,Positive,Distracted
+153,114,9,Confused,0.41,0.47,6.1,Logical,0.81,0.87,8,6,Calm,0.13,Single,4,Rock,Rest,0.76,0.21,Mixed,Focused
+154,82,10,Happy,0.93,0.31,8.1,Overthinking,0.61,0.54,4,1,Excited,0.87,Single,2,Sad,Social Media,0.45,0.28,Negative,Distracted
+155,83,6,Love,0.99,0.12,7.2,Logical,0.86,0.76,1,7,Calm,0.16,Heartbroken,1,Rock,Social Media,0.41,0.4,Neutral,Focused
+156,96,10,Neutral,0.21,0.73,7.6,Overthinking,0.39,0.75,1,7,Excited,0.31,Single,7,Rock,Exercise,0.93,0.81,Positive,Motivated & productive
+157,94,10,Neutral,0.38,0.19,6.4,Distracted,0.96,0.02,10,10,Calm,0.29,In Relationship,8,Romantic,Rest,0.25,0.01,Positive,Emotionally unstable
+158,103,6,Angry,0.93,0.12,7.3,Distracted,0.13,0.13,3,10,Excited,0.87,Single,6,Chill,Study,0.12,0.65,Negative,Sad but stable
+159,99,1,Confused,0.72,0.42,5.3,Distracted,0.1,0.66,9,4,Excited,0.67,Heartbroken,4,Rock,Exercise,0.58,0.67,Negative,Emotionally unstable
+160,81,4,Happy,0.05,0.8,6.3,Distracted,0.66,0.16,7,8,Excited,0.8,Heartbroken,6,Classical,Study,0.97,0.8,Positive,Emotionally unstable
+161,86,10,Angry,0.78,0.75,8.2,Overthinking,0.94,0.26,2,6,Excited,0.25,In Relationship,3,Chill,Social Media,0.38,0.93,Neutral,Motivated & productive
+162,94,6,Fear,0.83,0.05,9.1,Balanced,0.81,0.95,9,4,Excited,0.62,Heartbroken,8,Sad,Exercise,0.06,0.02,Neutral,Distracted
+163,60,6,Sad,0.75,0.46,6.0,Overthinking,0.08,0.56,10,4,Excited,0.57,In Relationship,10,Romantic,Exercise,0.34,0.15,Mixed,Sad but stable
+164,94,5,Neutral,0.8,0.52,3.3,Logical,0.28,0.75,2,2,Excited,0.83,Single,2,Sad,Work,0.51,0.89,Negative,Distracted
+165,96,1,Fear,0.83,0.64,4.1,Distracted,0.93,0.56,3,2,Excited,0.91,Single,5,Sad,Social Media,0.16,0.46,Neutral,Emotionally unstable
+166,106,8,Fear,0.19,0.65,3.1,Distracted,0.25,0.55,10,4,Excited,0.01,In Relationship,1,Chill,Social Media,0.66,0.56,Mixed,Focused
+167,73,5,Love,0.24,0.36,7.6,Logical,0.78,0.09,2,5,Calm,0.67,In Relationship,6,Sad,Exercise,1.0,0.66,Neutral,Emotionally unstable
+168,62,5,Sad,0.63,0.56,5.3,Overthinking,0.83,0.34,3,8,Shaky,0.05,Heartbroken,2,Rock,Social Media,0.45,0.68,Negative,Distracted
+169,60,7,Fear,0.91,0.48,6.8,Balanced,0.5,0.28,6,6,Excited,0.55,Single,4,Sad,Exercise,0.35,0.93,Mixed,Emotionally unstable
+170,64,4,Fear,0.32,0.88,6.5,Balanced,0.39,0.39,9,4,Shaky,0.29,In Relationship,6,Romantic,Work,0.4,1.0,Mixed,Focused
+171,85,6,Sad,0.59,0.53,3.6,Logical,0.45,0.8,9,7,Excited,0.31,Single,10,Romantic,Exercise,0.12,0.72,Mixed,Motivated & productive
+172,114,4,Sad,0.68,0.44,5.8,Balanced,0.23,0.37,7,8,Excited,0.35,In Relationship,8,Classical,Social Media,0.88,0.29,Neutral,Distracted
+173,73,3,Fear,0.45,0.4,4.5,Overthinking,0.89,0.45,3,2,Calm,0.62,Single,8,Romantic,Social Media,0.41,0.88,Negative,Emotionally unstable
+174,98,7,Sad,0.71,0.57,5.9,Overthinking,0.45,0.4,4,7,Aggressive,0.33,Heartbroken,6,Sad,Exercise,0.39,0.05,Mixed,Distracted
+175,86,8,Fear,0.9,0.8,4.4,Logical,0.88,0.09,6,2,Aggressive,0.73,Single,4,Romantic,Exercise,0.66,0.23,Positive,Motivated & productive
+176,68,4,Fear,0.62,0.54,8.9,Overthinking,0.11,0.44,5,2,Calm,0.4,Single,8,Chill,Exercise,0.44,0.9,Negative,Emotionally unstable
+177,74,2,Love,0.54,0.66,4.2,Distracted,0.99,0.2,2,8,Shaky,0.07,Single,8,Romantic,Rest,0.65,0.26,Positive,Emotionally unstable
+178,74,10,Happy,0.44,0.74,9.7,Logical,0.44,0.19,6,2,Aggressive,0.78,Single,10,Rock,Social Media,0.06,0.22,Positive,Distracted
+179,85,3,Fear,0.58,0.52,5.9,Overthinking,0.05,0.09,3,9,Calm,0.29,Single,1,Chill,Social Media,0.81,0.14,Mixed,Distracted
+180,101,1,Angry,0.36,0.43,8.9,Logical,0.04,0.36,8,1,Calm,0.43,Heartbroken,4,Classical,Rest,0.94,0.86,Mixed,Focused
+181,119,8,Neutral,0.39,0.88,7.4,Balanced,0.75,0.76,2,9,Aggressive,0.69,In Relationship,4,Rock,Exercise,0.65,0.5,Neutral,Motivated & productive
+182,72,3,Confused,0.53,0.42,8.1,Overthinking,0.66,0.28,1,1,Shaky,0.33,Single,7,Sad,Work,0.95,0.67,Neutral,Focused
+183,110,10,Happy,0.07,0.46,8.4,Distracted,0.8,0.31,9,10,Calm,0.06,Heartbroken,7,Sad,Exercise,0.15,0.24,Neutral,Emotionally unstable
+184,91,7,Happy,0.23,0.99,6.5,Overthinking,0.11,0.64,3,10,Excited,0.37,Single,8,Sad,Exercise,0.48,0.76,Negative,Distracted
+185,98,10,Happy,0.54,0.0,6.8,Logical,0.04,0.2,1,2,Shaky,0.94,Single,5,Rock,Rest,0.6,0.76,Neutral,Emotionally unstable
+186,108,5,Love,0.43,0.19,6.6,Logical,0.51,0.9,7,6,Shaky,0.64,In Relationship,7,Rock,Social Media,0.58,0.31,Positive,Emotionally unstable
+187,111,10,Fear,0.33,0.38,7.1,Overthinking,0.39,0.52,10,6,Aggressive,0.67,Single,8,Rock,Exercise,0.4,0.41,Neutral,Sad but stable
+188,91,5,Love,0.73,0.93,3.2,Distracted,0.46,0.45,5,1,Aggressive,0.63,Heartbroken,9,Chill,Social Media,0.34,0.21,Mixed,Sad but stable
+189,63,7,Fear,0.69,0.07,5.8,Distracted,0.99,0.56,5,7,Excited,0.2,Heartbroken,3,Chill,Study,0.13,0.98,Neutral,Emotionally unstable
+190,89,9,Love,0.17,0.01,7.2,Distracted,0.97,0.17,1,8,Calm,0.42,In Relationship,3,Sad,Social Media,0.39,0.65,Negative,Distracted
+191,96,5,Love,0.88,0.05,7.2,Logical,0.94,0.61,9,2,Aggressive,0.75,Single,4,Romantic,Work,0.16,0.93,Negative,Emotionally unstable
+192,82,1,Neutral,0.5,0.09,8.6,Overthinking,0.78,0.36,7,8,Aggressive,0.1,Heartbroken,5,Sad,Work,0.73,0.3,Positive,Sad but stable
+193,98,10,Angry,0.74,0.04,7.6,Balanced,0.35,0.9,8,9,Shaky,0.28,Single,10,Classical,Exercise,0.21,0.78,Negative,Distracted
+194,104,10,Love,0.57,0.48,9.9,Logical,0.41,0.17,9,6,Aggressive,0.28,Single,1,Chill,Social Media,0.06,0.77,Neutral,Emotionally unstable
+195,74,1,Neutral,1.0,0.58,5.0,Distracted,0.55,0.51,6,5,Aggressive,0.43,Single,7,Rock,Exercise,0.55,0.69,Mixed,Motivated & productive
+196,102,2,Sad,0.75,0.27,5.5,Overthinking,0.83,0.6,5,9,Aggressive,0.98,In Relationship,9,Chill,Rest,0.6,0.97,Negative,Motivated & productive
+197,88,6,Angry,0.71,0.4,5.7,Distracted,0.07,0.03,6,9,Aggressive,0.07,Single,8,Rock,Work,0.87,0.39,Positive,Emotionally unstable
+198,95,9,Love,0.78,0.09,6.3,Balanced,0.42,0.36,2,1,Shaky,0.52,Heartbroken,5,Classical,Exercise,0.58,0.13,Neutral,Distracted
+199,72,8,Confused,0.14,0.34,8.9,Distracted,0.08,0.73,4,3,Excited,0.18,Single,4,Classical,Rest,0.35,0.67,Positive,Emotionally unstable
+200,91,5,Happy,0.2,0.52,4.7,Distracted,0.51,0.82,3,9,Excited,0.97,Heartbroken,7,Chill,Exercise,0.8,0.73,Negative,Emotionally unstable
+201,66,1,Sad,0.71,0.73,8.4,Balanced,0.9,0.31,7,2,Calm,0.11,Single,5,Rock,Social Media,0.54,0.58,Negative,Sad but stable
+202,118,7,Sad,0.49,0.0,5.8,Overthinking,0.78,0.8,9,4,Aggressive,0.4,Heartbroken,7,Classical,Social Media,0.08,0.21,Positive,Motivated & productive
+203,110,5,Neutral,0.75,0.47,7.2,Logical,0.23,0.97,5,4,Shaky,0.74,Heartbroken,1,Sad,Social Media,0.57,0.5,Neutral,Sad but stable
+204,81,6,Sad,0.1,0.3,7.4,Overthinking,0.98,0.86,6,2,Calm,0.7,Single,1,Sad,Social Media,0.91,0.31,Negative,Sad but stable
+205,87,7,Angry,0.54,0.85,5.6,Balanced,0.67,0.12,10,3,Calm,0.42,Single,10,Rock,Study,0.4,0.43,Mixed,Emotionally unstable
+206,61,3,Love,0.38,0.72,6.6,Distracted,0.01,0.74,2,3,Excited,0.35,Heartbroken,3,Chill,Rest,0.3,0.65,Negative,Sad but stable
+207,101,10,Love,0.46,0.59,5.9,Overthinking,0.26,0.32,3,1,Shaky,0.4,In Relationship,2,Classical,Rest,0.14,0.75,Neutral,Motivated & productive
+208,104,3,Confused,0.6,0.28,3.5,Logical,0.26,0.99,3,6,Shaky,0.26,Single,2,Chill,Social Media,0.15,0.23,Negative,Sad but stable
+209,116,5,Happy,0.5,0.91,6.1,Balanced,0.07,0.49,9,8,Shaky,0.21,In Relationship,7,Sad,Study,0.43,0.41,Positive,Motivated & productive
+210,112,6,Neutral,0.54,0.05,3.7,Overthinking,0.96,0.12,7,3,Excited,0.48,Single,10,Classical,Social Media,0.6,0.27,Negative,Sad but stable
+211,65,9,Happy,0.49,0.11,5.8,Logical,0.48,0.73,8,5,Excited,0.27,Single,2,Chill,Study,0.08,0.2,Negative,Motivated & productive
+212,87,5,Sad,0.41,0.39,7.2,Balanced,0.9,0.32,10,1,Excited,0.29,Single,4,Romantic,Social Media,0.94,0.78,Neutral,Sad but stable
+213,87,1,Confused,0.77,0.12,7.1,Logical,0.32,1.0,9,10,Excited,0.66,Single,2,Rock,Work,0.76,0.91,Positive,Sad but stable
+214,103,4,Happy,0.01,0.96,7.6,Balanced,0.13,0.98,6,7,Excited,0.97,In Relationship,6,Rock,Work,0.59,0.37,Neutral,Distracted
+215,103,5,Angry,0.6,0.8,3.7,Distracted,0.47,0.66,4,10,Aggressive,0.6,Single,8,Romantic,Exercise,0.83,0.75,Negative,Motivated & productive
+216,79,10,Love,0.57,0.26,7.6,Overthinking,0.11,0.13,1,1,Aggressive,0.08,Heartbroken,10,Sad,Social Media,0.08,0.9,Mixed,Motivated & productive
+217,89,10,Sad,0.72,0.59,5.2,Logical,0.49,0.69,8,9,Shaky,0.08,Heartbroken,4,Classical,Rest,0.48,0.85,Negative,Motivated & productive
+218,70,5,Confused,0.6,0.98,5.8,Balanced,0.92,0.09,7,8,Calm,0.95,In Relationship,5,Rock,Exercise,0.63,0.18,Neutral,Focused
+219,117,7,Happy,0.83,0.88,9.0,Logical,0.52,0.03,2,7,Shaky,0.3,Single,4,Romantic,Work,0.83,0.96,Mixed,Sad but stable
+220,114,4,Neutral,0.96,0.6,3.1,Logical,0.62,0.82,8,10,Calm,0.09,Heartbroken,3,Romantic,Social Media,0.78,0.38,Neutral,Motivated & productive
+221,87,1,Angry,0.34,0.9,7.1,Overthinking,0.16,0.21,5,7,Excited,0.6,In Relationship,5,Sad,Exercise,0.28,0.34,Neutral,Focused
+222,84,5,Angry,0.23,0.99,7.2,Distracted,0.04,0.38,7,5,Calm,0.62,Single,9,Sad,Social Media,0.94,0.06,Positive,Distracted
+223,98,7,Happy,0.42,0.74,5.8,Logical,0.11,0.97,4,5,Shaky,0.65,Heartbroken,8,Chill,Work,0.12,0.49,Mixed,Motivated & productive
+224,92,10,Love,0.29,0.06,4.7,Balanced,0.6,0.34,5,5,Shaky,0.27,Heartbroken,8,Rock,Exercise,0.88,0.11,Negative,Motivated & productive
+225,60,10,Happy,0.61,0.4,4.6,Balanced,0.1,0.3,8,1,Calm,0.02,In Relationship,8,Chill,Work,0.97,0.25,Neutral,Focused
+226,116,6,Sad,0.91,0.84,9.2,Distracted,0.38,0.92,1,8,Aggressive,0.97,Single,8,Romantic,Study,0.18,0.32,Negative,Sad but stable
+227,86,5,Happy,0.14,0.23,6.1,Balanced,0.55,0.11,1,1,Excited,0.25,Single,7,Classical,Work,0.72,0.81,Positive,Distracted
+228,116,4,Angry,0.1,0.83,5.3,Distracted,0.39,0.76,4,4,Excited,0.68,Heartbroken,8,Classical,Social Media,0.04,0.88,Positive,Motivated & productive
+229,111,2,Confused,0.26,0.12,6.1,Balanced,0.16,0.99,3,9,Shaky,0.71,Heartbroken,8,Sad,Rest,0.41,0.3,Mixed,Sad but stable
+230,72,4,Happy,0.73,0.05,7.7,Overthinking,0.27,0.9,10,9,Aggressive,0.61,Heartbroken,8,Classical,Work,0.52,0.86,Positive,Distracted
+231,100,10,Love,0.59,0.38,4.0,Logical,0.93,0.65,2,5,Calm,0.31,Single,10,Classical,Rest,0.58,0.86,Positive,Emotionally unstable
+232,62,10,Confused,0.1,0.04,6.1,Overthinking,0.68,0.31,3,4,Excited,0.27,In Relationship,7,Classical,Study,0.94,0.76,Negative,Emotionally unstable
+233,98,3,Neutral,0.92,0.96,7.1,Logical,0.5,0.25,1,3,Aggressive,0.6,In Relationship,1,Romantic,Exercise,0.67,0.15,Positive,Distracted
+234,65,10,Fear,0.79,0.83,9.6,Logical,0.01,0.82,1,3,Excited,0.87,Single,4,Classical,Exercise,0.48,0.69,Positive,Focused
+235,67,1,Happy,0.02,0.8,4.8,Logical,0.99,0.88,6,5,Aggressive,0.95,In Relationship,4,Classical,Rest,0.81,0.95,Neutral,Distracted
+236,86,8,Love,0.65,0.63,5.5,Overthinking,0.67,0.53,5,10,Aggressive,0.11,Heartbroken,5,Classical,Exercise,0.95,0.68,Positive,Distracted
+237,68,5,Confused,0.77,0.22,5.7,Logical,0.32,0.24,8,1,Shaky,0.15,In Relationship,10,Chill,Work,0.02,0.33,Neutral,Focused
+238,96,4,Love,0.37,0.52,7.2,Overthinking,0.88,0.11,2,5,Excited,0.94,In Relationship,6,Romantic,Rest,0.98,0.5,Positive,Focused
+239,92,8,Neutral,0.07,0.6,5.5,Distracted,0.26,0.09,4,6,Calm,0.74,In Relationship,4,Sad,Social Media,0.09,0.65,Positive,Sad but stable
+240,110,7,Angry,0.08,0.53,6.7,Balanced,0.54,0.72,8,7,Shaky,0.88,Heartbroken,2,Chill,Work,0.81,0.51,Mixed,Sad but stable
+241,101,2,Love,0.1,0.26,8.5,Balanced,0.64,0.42,6,9,Shaky,0.2,Single,6,Rock,Work,0.28,0.12,Mixed,Focused
+242,103,1,Confused,0.84,0.52,7.9,Logical,0.22,0.91,1,3,Calm,0.59,Heartbroken,8,Romantic,Work,0.13,0.31,Neutral,Emotionally unstable
+243,83,4,Love,0.91,0.49,6.1,Overthinking,0.98,0.74,4,2,Shaky,0.7,Single,8,Romantic,Social Media,0.44,0.8,Positive,Emotionally unstable
+244,74,8,Love,0.12,1.0,9.0,Balanced,0.75,0.19,1,3,Aggressive,0.68,Single,7,Rock,Study,0.64,0.86,Negative,Distracted
+245,118,2,Love,0.24,0.9,6.9,Overthinking,0.56,0.61,2,9,Aggressive,0.41,Single,6,Rock,Exercise,0.38,0.14,Mixed,Motivated & productive
+246,113,3,Sad,0.17,0.46,6.8,Overthinking,0.18,0.44,5,7,Excited,0.02,In Relationship,2,Rock,Rest,0.05,0.95,Negative,Distracted
+247,91,1,Sad,0.19,0.62,3.2,Logical,0.05,0.58,8,9,Excited,0.58,In Relationship,7,Sad,Study,0.6,0.33,Mixed,Distracted
+248,91,1,Angry,0.84,0.75,9.9,Balanced,0.32,0.74,8,2,Calm,0.25,Single,5,Classical,Rest,0.9,0.66,Mixed,Motivated & productive
+249,83,3,Happy,0.33,0.03,3.9,Logical,0.75,0.81,3,5,Excited,0.45,Single,6,Romantic,Exercise,0.38,0.75,Positive,Focused
+250,100,5,Love,0.31,0.89,4.6,Logical,0.27,0.84,4,4,Aggressive,0.96,In Relationship,10,Classical,Social Media,0.22,0.81,Mixed,Emotionally unstable
+251,111,3,Neutral,0.23,0.86,3.4,Balanced,0.54,0.25,10,2,Calm,0.4,Heartbroken,8,Classical,Work,0.44,0.95,Negative,Distracted
+252,108,1,Happy,0.61,0.46,7.5,Balanced,0.73,0.03,6,9,Calm,0.84,Single,8,Rock,Work,0.05,0.31,Mixed,Motivated & productive
+253,108,1,Neutral,0.38,0.39,4.6,Distracted,0.11,0.74,10,9,Excited,0.19,Heartbroken,3,Sad,Social Media,0.82,0.86,Neutral,Sad but stable
+254,117,8,Happy,0.74,0.27,4.3,Distracted,0.69,0.11,3,6,Aggressive,0.67,In Relationship,7,Chill,Study,0.83,0.13,Positive,Distracted
+255,111,10,Angry,0.21,0.48,3.6,Overthinking,0.09,0.31,2,6,Calm,0.98,Single,1,Sad,Study,0.59,0.71,Positive,Emotionally unstable
+256,71,2,Love,0.79,0.04,3.7,Balanced,0.97,0.0,6,8,Aggressive,0.1,Heartbroken,1,Classical,Rest,0.35,0.74,Neutral,Focused
+257,98,3,Love,0.6,0.85,7.1,Distracted,0.49,0.68,5,6,Aggressive,0.01,Heartbroken,7,Sad,Social Media,0.8,0.68,Neutral,Distracted
+258,61,2,Fear,0.11,0.04,7.8,Overthinking,0.15,0.17,10,1,Aggressive,0.43,Heartbroken,10,Rock,Study,0.55,0.25,Neutral,Distracted
+259,62,3,Neutral,0.41,0.33,5.8,Overthinking,0.34,0.66,5,4,Excited,0.09,In Relationship,9,Chill,Social Media,0.83,0.87,Mixed,Motivated & productive
+260,108,7,Happy,0.86,0.93,6.4,Overthinking,0.41,0.99,10,7,Shaky,0.75,In Relationship,7,Rock,Exercise,0.63,0.17,Positive,Sad but stable
+261,96,1,Happy,0.92,0.74,7.8,Distracted,0.76,0.07,5,2,Shaky,0.91,Heartbroken,10,Chill,Work,0.78,0.05,Neutral,Sad but stable
+262,108,10,Sad,0.47,0.28,3.1,Balanced,0.74,0.08,10,9,Calm,0.43,Heartbroken,5,Classical,Work,0.6,0.72,Mixed,Focused
+263,115,8,Fear,0.48,0.25,5.3,Logical,0.61,0.34,5,8,Aggressive,0.26,In Relationship,8,Chill,Work,0.41,0.48,Neutral,Emotionally unstable
+264,76,10,Confused,0.92,0.01,9.8,Overthinking,0.11,0.87,3,8,Excited,0.43,Heartbroken,2,Chill,Social Media,0.96,0.85,Negative,Focused
+265,118,10,Confused,0.59,0.7,7.1,Distracted,0.15,0.22,7,7,Aggressive,0.72,Heartbroken,9,Chill,Social Media,0.54,0.38,Negative,Distracted
+266,108,10,Sad,0.03,0.05,4.8,Distracted,0.09,0.36,6,4,Aggressive,0.01,In Relationship,6,Sad,Rest,0.61,0.17,Positive,Distracted
+267,61,2,Sad,0.91,0.53,6.7,Logical,0.58,0.07,4,2,Excited,0.59,Heartbroken,9,Sad,Work,0.22,0.84,Mixed,Sad but stable
+268,61,3,Sad,0.25,0.96,5.4,Logical,0.88,0.76,2,3,Shaky,0.61,Heartbroken,2,Classical,Rest,0.63,0.55,Negative,Emotionally unstable
+269,87,9,Neutral,0.58,0.11,6.7,Distracted,0.43,0.41,9,6,Aggressive,0.64,Heartbroken,3,Chill,Work,0.57,0.19,Negative,Motivated & productive
+270,113,7,Neutral,0.17,0.89,3.9,Balanced,0.16,0.76,1,5,Aggressive,0.24,In Relationship,8,Romantic,Rest,0.18,0.72,Mixed,Emotionally unstable
+271,82,4,Angry,0.03,0.99,3.9,Logical,0.56,0.9,4,8,Shaky,0.71,Heartbroken,1,Classical,Rest,0.06,0.51,Neutral,Distracted
+272,96,10,Angry,0.31,0.06,4.0,Distracted,0.81,0.23,1,6,Excited,0.09,In Relationship,10,Chill,Exercise,0.6,0.6,Mixed,Motivated & productive
+273,91,5,Sad,0.78,0.88,9.6,Logical,0.74,0.81,6,6,Calm,0.2,In Relationship,7,Chill,Rest,0.76,0.46,Neutral,Emotionally unstable
+274,92,2,Fear,0.28,0.52,8.1,Balanced,0.88,0.06,4,1,Shaky,0.88,Single,7,Sad,Social Media,0.52,0.83,Negative,Emotionally unstable
+275,60,8,Happy,0.22,0.91,4.1,Overthinking,0.28,0.9,5,4,Calm,0.74,Single,1,Classical,Rest,0.23,0.83,Negative,Motivated & productive
+276,78,4,Neutral,0.21,0.57,4.3,Logical,0.19,0.65,5,5,Calm,0.01,Heartbroken,9,Chill,Work,0.67,0.71,Negative,Distracted
+277,61,9,Fear,0.52,0.66,8.1,Balanced,0.88,0.87,9,3,Shaky,0.25,In Relationship,8,Chill,Rest,0.08,0.11,Positive,Emotionally unstable
+278,112,5,Love,0.98,0.54,4.1,Distracted,0.66,0.0,1,9,Aggressive,0.21,Single,4,Classical,Study,0.44,0.84,Positive,Motivated & productive
+279,103,9,Neutral,0.46,0.86,4.6,Logical,0.31,0.17,2,1,Calm,0.27,Heartbroken,10,Romantic,Work,0.16,0.67,Positive,Distracted
+280,85,4,Neutral,0.56,0.73,9.7,Logical,0.74,0.39,6,6,Calm,0.25,Single,5,Classical,Study,0.18,0.7,Mixed,Motivated & productive
+281,91,10,Angry,0.86,0.52,4.8,Distracted,0.82,0.38,5,6,Excited,0.06,Single,2,Classical,Work,0.2,0.36,Negative,Motivated & productive
+282,65,5,Happy,0.54,0.87,7.6,Overthinking,0.61,0.23,7,10,Aggressive,0.46,In Relationship,9,Romantic,Social Media,0.39,0.88,Negative,Emotionally unstable
+283,91,9,Happy,0.18,0.25,9.9,Distracted,0.69,0.38,3,5,Calm,0.73,In Relationship,6,Classical,Social Media,0.05,0.73,Mixed,Distracted
+284,114,8,Confused,0.3,0.16,5.6,Logical,0.38,0.13,3,5,Excited,0.61,Single,3,Chill,Social Media,0.4,0.11,Positive,Emotionally unstable
+285,63,3,Confused,0.31,0.16,3.1,Distracted,0.54,0.41,10,10,Aggressive,0.67,Single,7,Classical,Study,0.51,0.41,Mixed,Focused
+286,114,1,Confused,0.4,0.33,4.7,Balanced,0.52,0.8,2,5,Shaky,0.08,In Relationship,9,Romantic,Exercise,0.48,0.89,Positive,Focused
+287,70,3,Confused,0.43,0.24,8.8,Distracted,0.85,0.48,3,6,Shaky,0.95,Heartbroken,3,Rock,Work,0.38,0.05,Negative,Distracted
+288,115,4,Love,0.8,0.93,9.1,Logical,0.84,0.02,10,8,Excited,0.84,In Relationship,2,Classical,Social Media,0.84,0.96,Neutral,Motivated & productive
+289,118,2,Love,0.35,0.11,8.4,Distracted,0.83,0.42,1,2,Shaky,0.81,Single,7,Sad,Work,0.15,0.68,Positive,Emotionally unstable
+290,76,1,Neutral,0.47,0.7,3.8,Overthinking,0.01,0.03,5,6,Calm,0.82,Heartbroken,7,Chill,Study,0.51,0.63,Negative,Emotionally unstable
+291,97,7,Sad,0.62,0.19,8.6,Distracted,0.75,0.97,5,1,Aggressive,0.93,Single,4,Chill,Exercise,0.06,0.27,Negative,Distracted
+292,83,8,Angry,0.38,0.88,9.4,Overthinking,0.76,0.13,7,4,Calm,0.54,Heartbroken,9,Sad,Study,0.07,0.25,Neutral,Distracted
+293,64,7,Angry,0.84,0.96,7.2,Balanced,0.68,0.71,4,10,Calm,0.2,Single,8,Sad,Work,0.57,0.94,Negative,Focused
+294,111,5,Confused,0.59,0.47,9.6,Overthinking,0.76,0.97,3,3,Shaky,0.62,Heartbroken,1,Classical,Exercise,0.57,0.3,Negative,Sad but stable
+295,93,1,Neutral,0.29,0.88,8.8,Distracted,0.84,0.83,1,9,Calm,0.74,Heartbroken,1,Sad,Exercise,0.88,0.78,Positive,Distracted
+296,65,7,Fear,0.71,0.01,7.7,Logical,0.47,0.7,8,3,Shaky,0.74,Single,5,Rock,Study,0.56,0.39,Positive,Sad but stable
+297,81,7,Sad,0.53,0.82,7.0,Overthinking,0.5,0.84,3,6,Aggressive,0.52,Heartbroken,6,Romantic,Social Media,0.96,0.14,Neutral,Distracted
+298,70,9,Neutral,0.53,0.23,5.4,Balanced,0.12,0.98,2,1,Aggressive,0.07,In Relationship,3,Sad,Work,0.05,0.01,Neutral,Motivated & productive
+299,107,3,Sad,0.48,0.91,4.1,Overthinking,0.39,0.62,4,6,Calm,0.37,Single,9,Sad,Rest,0.1,0.54,Negative,Motivated & productive
+300,75,9,Sad,0.5,0.0,7.2,Overthinking,0.64,0.56,3,4,Excited,0.92,In Relationship,10,Rock,Rest,0.04,0.98,Positive,Focused

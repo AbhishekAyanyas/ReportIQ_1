@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback History - ReportIQ</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <a href="/" class="logo">
+            <div class="logo-icon">📊</div>
+            <span>ReportIQ</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/visualizations">Analytics</a></li>
+            <li><a href="/reporthistory">Reports</a></li>
+            <li><a href="/feedbackhistory" class="active">Feedback</a></li>
+        </ul>
+    </nav>
+
+    <!-- Feedback History Container -->
+    <div class="dashboard-container">
+        <div class="page-header">
+            <h1>💬 Feedback History</h1>
+            <p class="text-secondary">All feedback submissions across all reports</p>
+        </div>
+
+        <!-- Feedback Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">📊</div>
+                <div class="stat-number" id="totalFeedbacks">0</div>
+                <div class="stat-label">Total Feedbacks</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⭐</div>
+                <div class="stat-number" id="avgRating">0</div>
+                <div class="stat-label">Average Rating</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">👍</div>
+                <div class="stat-number" id="praiseFeedbacks">0</div>
+                <div class="stat-label">Praise</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">💡</div>
+                <div class="stat-number" id="suggestionFeedbacks">0</div>
+                <div class="stat-label">Suggestions</div>
+            </div>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="card">
+            <div class="filter-section">
+                <button class="filter-btn active" onclick="filterFeedbackByCategory('all')">
+                    All
+                </button>
+                <button class="filter-btn" onclick="filterFeedbackByCategory('general')">
+                    General
+                </button>
+                <button class="filter-btn" onclick="filterFeedbackByCategory('praise')">
+                    Praise
+                </button>
+                <button class="filter-btn" onclick="filterFeedbackByCategory('suggestion')">
+                    Suggestions
+                </button>
+                <button class="filter-btn" onclick="filterFeedbackByCategory('bug')">
+                    Bug Reports
+                </button>
+            </div>
+        </div>
+
+        <!-- Feedback List -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-icon">📝</span>
+                <h3>All Feedback</h3>
+            </div>
+            <div id="allFeedbackList" class="feedback-list">
+                <p class="text-center text-secondary">Loading feedback...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/feedback.js"></script>
+    
+    <script>
+        let allFeedbackData = [];
+
+        // Load All Feedback
+        async function loadAllFeedback() {
+            try {
+                showLoading(true);
+                const response = await fetch(`${API_BASE}/api/feedback/all`);
+                const data = await response.json();
+                
+                allFeedbackData = data.recent_feedbacks || [];
+                
+                // Update statistics
+                document.getElementById('totalFeedbacks').textContent = data.total_feedbacks;
+                document.getElementById('avgRating').textContent = data.average_rating.toFixed(1) + '⭐';
+                document.getElementById('praiseFeedbacks').textContent = data.category_counts.praise || 0;
+                document.getElementById('suggestionFeedbacks').textContent = data.category_counts.suggestion || 0;
+                
+                // Display all feedback
+                displayAllFeedback(allFeedbackData);
+                
+            } catch (error) {
+                console.error('Error loading all feedback:', error);
+                showNotification('Failed to load feedback', 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // Display All Feedback
+        function displayAllFeedback(feedbacks) {
+            const container = document.getElementById('allFeedbackList');
+            if (!container) return;
+            
+            if (feedbacks.length === 0) {
+                container.innerHTML = '<p class="text-center text-secondary">No feedback found</p>';
+                return;
+            }
+            
+            container.innerHTML = feedbacks.map(feedback => `
+                <div class="feedback-item" data-category="${feedback.category}">
+                    <div class="feedback-header">
+                        <div>
+                            <div class="feedback-rating">
+                                ${generateStars(feedback.rating)}
+                            </div>
+                            <div class="feedback-report-id">
+                                Report: <a href="/visualizations?id=${feedback.report_id}" class="text-primary">${feedback.report_id}</a>
+                            </div>
+                        </div>
+                        <span class="feedback-category badge-${feedback.category}">${feedback.category}</span>
+                    </div>
+                    <p class="feedback-comment">${escapeHtml(feedback.comment)}</p>
+                    <div class="feedback-footer">
+                        <span class="feedback-time">📅 ${feedback.timestamp}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Filter Feedback by Category
+        function filterFeedbackByCategory(category) {
+            // Update active button
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            filterBtns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Filter feedback
+            if (category === 'all') {
+                displayAllFeedback(allFeedbackData);
+            } else {
+                const filtered = allFeedbackData.filter(f => f.category === category);
+                displayAllFeedback(filtered);
+            }
+        }
+
+        // Load on page ready
+        document.addEventListener('DOMContentLoaded', function() {
+            loadAllFeedback();
+        });
+    </script>
+
+    <style>
+        .page-header {
+            margin-bottom: 2rem;
+        }
+        
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .filter-section {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn:hover {
+            border-color: var(--primary-blue);
+            color: var(--primary-blue);
+        }
+        
+        .filter-btn.active {
+            background-color: var(--primary-blue);
+            border-color: var(--primary-blue);
+            color: white;
+        }
+        
+        .feedback-report-id {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+        
+        .text-primary {
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+        
+        .text-primary:hover {
+            text-decoration: underline;
+        }
+    </style>
+</body>
+</html>

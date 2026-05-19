@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - ReportIQ</title>
+    <link rel="stylesheet" href="/static/css/modern-style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <a href="/" class="logo">
+            <div class="logo-icon">✨</div>
+            <span>ReportIQ</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/dashboard" class="active">Dashboard</a></li>
+            <li><a href="/visualizations">Analytics</a></li>
+            <li><a href="/reporthistory">Reports</a></li>
+        </ul>
+    </nav>
+
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+
+        <!-- Statistics Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">📄</div>
+                <div class="stat-number" id="totalReports">0</div>
+                <div class="stat-label">Total Reports</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">✅</div>
+                <div class="stat-number" id="completedReports">0</div>
+                <div class="stat-label">Completed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⏳</div>
+                <div class="stat-number" id="processingReports">0</div>
+                <div class="stat-label">Processing</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">❌</div>
+                <div class="stat-number" id="failedReports">0</div>
+                <div class="stat-label">Failed</div>
+            </div>
+        </div>
+
+        <!-- Main Dashboard Grid -->
+        <div class="dashboard-grid">
+
+            <!-- Upload Card -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-icon">📤</span>
+                    <h3>Upload Report</h3>
+                </div>
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">📁</div>
+                    <p style="color:white;font-weight:600;margin-bottom:0.5rem;">Drag &amp; Drop your file here</p>
+                    <p class="text-secondary">or click to browse</p>
+                    <p class="text-secondary" style="font-size:0.85rem;margin-top:0.5rem;">Supported: CSV, Excel (.xlsx)</p>
+                    <input type="file" id="fileInput" accept=".csv,.xlsx" style="display:none;">
+                    <p id="fileName" class="text-secondary mt-1"></p>
+                </div>
+                <button class="btn-primary" onclick="uploadFile()" style="width:100%;margin-top:1rem;">Upload File</button>
+                <div id="uploadResults" class="hidden"></div>
+                <div id="loader" style="display:none;text-align:center;margin-top:1rem;">
+                    <div class="spinner" style="margin:0 auto;"></div>
+                    <p class="text-center text-secondary mt-2">Processing your file...</p>
+                </div>
+            </div>
+
+            <!-- Report Summary Card — filled live by JS after upload -->
+            <div class="card" id="reportSummaryCard">
+                <div class="card-header">
+                    <span class="card-icon">📋</span>
+                    <h3>Report Summary</h3>
+                </div>
+                <p class="text-secondary" style="margin-bottom:1rem;">
+                    Upload a report to see live dataset stats here.
+                </p>
+                <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:0.75rem;">
+                    <li style="display:flex;align-items:start;gap:0.75rem;">
+                        <span style="width:24px;height:24px;background:rgba(59,130,246,0.2);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                            <span style="width:8px;height:8px;background:#3B82F6;border-radius:50%;"></span>
+                        </span>
+                        <span class="text-secondary">Row &amp; column counts</span>
+                    </li>
+                    <li style="display:flex;align-items:start;gap:0.75rem;">
+                        <span style="width:24px;height:24px;background:rgba(6,182,212,0.2);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                            <span style="width:8px;height:8px;background:#06B6D4;border-radius:50%;"></span>
+                        </span>
+                        <span class="text-secondary">Missing values &amp; duplicates</span>
+                    </li>
+                    <li style="display:flex;align-items:start;gap:0.75rem;">
+                        <span style="width:24px;height:24px;background:rgba(139,92,246,0.2);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                            <span style="width:8px;height:8px;background:#8B5CF6;border-radius:50%;"></span>
+                        </span>
+                        <span class="text-secondary">Data quality score</span>
+                    </li>
+                    <li style="display:flex;align-items:start;gap:0.75rem;">
+                        <span style="width:24px;height:24px;background:rgba(245,158,11,0.2);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                            <span style="width:8px;height:8px;background:#F59E0B;border-radius:50%;"></span>
+                        </span>
+                        <span class="text-secondary">Numeric / categorical columns</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Performance Metrics Card -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-icon">⚡</span>
+                    <h3>Performance Metrics</h3>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:1.5rem;">
+                    <div>
+                        <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;">
+                            <span style="color:white;font-weight:500;">Success Rate</span>
+                            <span style="color:#3B82F6;font-weight:700;" id="successRate">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div id="successRateBar" class="progress-fill" style="width:0%;"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;">
+                            <span style="color:white;font-weight:500;">Processing Speed</span>
+                            <span style="color:#06B6D4;font-weight:700;">92%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill blue" style="width:92%;"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;">
+                            <span style="color:white;font-weight:500;">Accuracy</span>
+                            <span style="color:#4CAF50;font-weight:700;">98%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill green" style="width:98%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity Card -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-icon">🕐</span>
+                    <h3>Recent Activity</h3>
+                </div>
+                <div id="recentActivityList" class="activity-list">
+                    <div class="activity-item">
+                        <div style="font-size:1.5rem;">⏳</div>
+                        <div style="flex:1;">
+                            <div style="color:white;font-weight:500;">Loading...</div>
+                            <div style="color:#94A3B8;font-size:0.85rem;margin-top:0.25rem;">Please wait</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ════════════════════════════════════════════════
+             Voice Query Section — FIXED
+             ════════════════════════════════════════════════ -->
+        <div class="card" style="margin-top:2rem;">
+            <div class="card-header">
+                <span class="card-icon">🎤</span>
+                <h3>Voice Query</h3>
+            </div>
+
+            <!-- Input row -->
+            <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;">
+                <input
+                    type="text"
+                    id="voiceInput"
+                    placeholder="Ask a question about your data... (or click 🎤 Start)"
+                    style="flex:1;min-width:200px;background:rgba(51,65,85,0.5);color:white;
+                           padding:0.75rem 1rem;border-radius:12px;
+                           border:1px solid rgba(59,130,246,0.3);outline:none;font-size:0.95rem;"
+                >
+                <button id="voiceStartBtn"
+                        class="btn-primary"
+                        onclick="startVoiceRecognition()"
+                        style="white-space:nowrap;">
+                    🎤 Start
+                </button>
+                <button class="btn-primary"
+                        onclick="submitVoiceQuery()"
+                        style="white-space:nowrap;background:linear-gradient(135deg,#06B6D4,#3B82F6);">
+                    ➤ Send
+                </button>
+            </div>
+
+            <!-- Hint -->
+            <p id="voiceHint" class="text-secondary" style="font-size:0.83rem;margin-top:0.6rem;">
+                Try: "What is the total sales?" · "Show anomalies in revenue" · "Best category by profit" · "Dataset summary"
+            </p>
+
+            <!-- Result box — hidden until a query is answered -->
+            <div id="voiceResult"
+                 style="display:none;margin-top:1rem;padding:1rem;
+                        background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.25);
+                        border-radius:12px;color:#E2E8F0;font-size:0.92rem;
+                        white-space:pre-wrap;line-height:1.6;">
+            </div>
+
+            <!-- Smart suggestions — loaded from /api/voice/suggestions/{id} -->
+            <div id="voiceSuggestions"
+                 style="display:none;margin-top:0.75rem;">
+                <p class="text-secondary" style="font-size:0.8rem;margin-bottom:0.4rem;">
+                    💡 Click a suggestion to fill the box:
+                </p>
+            </div>
+        </div>
+        <!-- ════════════════════════════════════════════════ -->
+
+    </div><!-- /dashboard-container -->
+
+    <script src="/static/js/main.js"></script>
+</body>
+</html>

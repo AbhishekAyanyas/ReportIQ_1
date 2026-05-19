@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Details - ReportIQ</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        /* Inline Star Rating System */
+        .rating-container {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: linear-gradient(135deg, rgba(74, 144, 226, 0.1), rgba(74, 144, 226, 0.05));
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            border: 2px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .rating-container:hover {
+            border-color: var(--primary-blue);
+            box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+        }
+
+        .rating-label {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .stars-wrapper {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .star-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 2rem;
+            color: var(--text-secondary);
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .star-btn:hover {
+            transform: scale(1.3) rotate(15deg);
+        }
+
+        .star-btn.active {
+            color: #FFD700;
+            animation: starPop 0.5s ease;
+        }
+
+        @keyframes starPop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.5) rotate(180deg); }
+            100% { transform: scale(1) rotate(360deg); }
+        }
+
+        .rating-value {
+            font-weight: bold;
+            color: var(--primary-blue);
+            font-size: 1.1rem;
+            min-width: 60px;
+            text-align: center;
+            padding: 0.25rem 0.75rem;
+            background: rgba(74, 144, 226, 0.1);
+            border-radius: 20px;
+        }
+
+        /* Rolling Submit Button */
+        .submit-rating-btn {
+            background: linear-gradient(135deg, #4A90E2, #357ABD);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-left: 1rem;
+        }
+
+        .submit-rating-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(74, 144, 226, 0.4);
+        }
+
+        .submit-rating-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-rating-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .submit-rating-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-rating-btn .icon {
+            transition: transform 0.3s ease;
+        }
+
+        .submit-rating-btn:hover .icon {
+            transform: rotate(360deg);
+        }
+
+        /* Report Card Styles */
+        .report-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .report-title {
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .report-id {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            background: rgba(74, 144, 226, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+
+        .report-section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .rating-feedback-section {
+            background: rgba(74, 144, 226, 0.05);
+            border: 2px dashed var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .inline-rating-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .rating-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-blue);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <a href="/" class="logo">
+            <div class="logo-icon">📊</div>
+            <span>ReportIQ</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/visualizations">Analytics</a></li>
+            <li><a href="/reporthistory">Reports</a></li>
+        </ul>
+    </nav>
+
+    <!-- Report Container -->
+    <div class="dashboard-container">
+        <!-- Report Header -->
+        <div class="report-card">
+            <div class="report-header">
+                <div>
+                    <h1 class="report-title">📄 Report Details</h1>
+                    <p class="text-secondary">Complete analysis and insights</p>
+                </div>
+                <div class="report-id">
+                    ID: <span id="reportIdDisplay">Loading...</span>
+                </div>
+            </div>
+
+            <!-- Report Info -->
+            <div class="report-section">
+                <h3 class="section-title">📌 Report Information</h3>
+                <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                    <div class="stat-card">
+                        <div class="stat-icon">📅</div>
+                        <div class="stat-number" id="reportDate">-</div>
+                        <div class="stat-label">Upload Date</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-number" id="dataRows">-</div>
+                        <div class="stat-label">Data Rows</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">✨</div>
+                        <div class="stat-number" id="qualityScore">-</div>
+                        <div class="stat-label">Quality Score</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-number">Completed</div>
+                        <div class="stat-label">Status</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Inline Rating Section -->
+            <div class="report-section">
+                <h3 class="section-title">⭐ Rate This Report</h3>
+                <div class="rating-feedback-section">
+                    <div class="inline-rating-row">
+                        <!-- Star Rating -->
+                        <div class="rating-container">
+                            <span class="rating-label">Your Rating:</span>
+                            <div class="stars-wrapper" id="starRating">
+                                <button class="star-btn" onclick="setRating(1)" data-rating="1">☆</button>
+                                <button class="star-btn" onclick="setRating(2)" data-rating="2">☆</button>
+                                <button class="star-btn" onclick="setRating(3)" data-rating="3">☆</button>
+                                <button class="star-btn" onclick="setRating(4)" data-rating="4">☆</button>
+                                <button class="star-btn" onclick="setRating(5)" data-rating="5">☆</button>
+                            </div>
+                            <span class="rating-value" id="ratingValue">0/5</span>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button class="submit-rating-btn" onclick="submitRating()">
+                            <span class="icon">🚀</span>
+                            <span>Submit Rating</span>
+                        </button>
+                    </div>
+
+                    <!-- Rating Stats -->
+                    <div class="rating-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Average Rating</span>
+                            <span class="stat-value" id="avgRating">0.0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Total Ratings</span>
+                            <span class="stat-value" id="totalRatings">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Report Actions -->
+            <div class="report-section">
+                <h3 class="section-title">🔧 Quick Actions</h3>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <button class="btn-primary" onclick="viewVisualizations()">
+                        📊 View Visualizations
+                    </button>
+                    <button class="btn-primary" onclick="downloadReport()">
+                        ⬇️ Download Report
+                    </button>
+                    <button class="btn-secondary" onclick="goBack()">
+                        ← Back to Reports
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div id="loader" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999;">
+        <div class="spinner" style="border: 4px solid rgba(74, 144, 226, 0.2); border-top: 4px solid #4A90E2; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite;"></div>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+    <script>
+        const API_BASE = window.location.origin;
+        let currentRating = 0;
+        let currentReportId = null;
+
+        // Get Report ID from URL
+        function getReportId() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('id') || localStorage.getItem('currentReportId');
+        }
+
+        // Set Star Rating
+        function setRating(rating) {
+            currentRating = rating;
+            
+            // Update star display
+            const stars = document.querySelectorAll('.star-btn');
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('active');
+                    star.textContent = '★';
+                } else {
+                    star.classList.remove('active');
+                    star.textContent = '☆';
+                }
+            });
+
+            // Update rating value
+            document.getElementById('ratingValue').textContent = `${rating}/5`;
+        }
+
+        // Submit Rating
+        async function submitRating() {
+            if (currentRating === 0) {
+                showNotification('Please select a rating first! ⭐', 'error');
+                return;
+            }
+
+            if (!currentReportId) {
+                showNotification('No report ID found!', 'error');
+                return;
+            }
+
+            try {
+                showLoading(true);
+
+                const response = await fetch(`${API_BASE}/api/feedback/submit`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        report_id: currentReportId,
+                        rating: currentRating,
+                        comment: `Quick rating: ${currentRating} stars`,
+                        category: 'general'
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to submit rating');
+                }
+
+                const data = await response.json();
+                
+                showNotification(`Thank you! Rated ${currentRating} stars! 🎉`, 'success');
+                
+                // Reload rating stats
+                loadRatingStats();
+
+            } catch (error) {
+                console.error('Rating submission error:', error);
+                showNotification('Failed to submit rating. Please try again.', 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // Load Rating Statistics
+        async function loadRatingStats() {
+            if (!currentReportId) return;
+
+            try {
+                const response = await fetch(`${API_BASE}/api/feedback/report/${currentReportId}`);
+                const data = await response.json();
+
+                if (data.total_feedbacks > 0) {
+                    document.getElementById('avgRating').textContent = data.average_rating.toFixed(1);
+                    document.getElementById('totalRatings').textContent = data.total_feedbacks;
+                }
+            } catch (error) {
+                console.error('Error loading rating stats:', error);
+            }
+        }
+
+        // View Visualizations
+        function viewVisualizations() {
+            if (currentReportId) {
+                window.location.href = `/visualizations?id=${currentReportId}`;
+            }
+        }
+
+        // Download Report
+        function downloadReport() {
+            if (currentReportId) {
+                window.location.href = `${API_BASE}/api/report/download/${currentReportId}`;
+            }
+        }
+
+        // Go Back
+        function goBack() {
+            window.location.href = '/reporthistory';
+        }
+
+        // Load Report Data
+        async function loadReportData() {
+            currentReportId = getReportId();
+            
+            if (!currentReportId) {
+                showNotification('No report ID provided', 'error');
+                return;
+            }
+
+            document.getElementById('reportIdDisplay').textContent = currentReportId;
+
+            try {
+                const response = await fetch(`${API_BASE}/api/report/${currentReportId}`);
+                const data = await response.json();
+
+                // Load basic info
+                document.getElementById('reportDate').textContent = new Date().toLocaleDateString();
+                
+                // Load rating stats
+                loadRatingStats();
+
+            } catch (error) {
+                console.error('Error loading report:', error);
+                showNotification('Failed to load report details', 'error');
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadReportData();
+        });
+    </script>
+</body>
+</html>

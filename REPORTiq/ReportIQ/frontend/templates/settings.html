@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REPORTiq - Settings</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h1>📊 REPORTiq</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">🏠 Home</a></li>
+                    <li><a href="dashboard.html">📈 Dashboard</a></li>
+                    <li><a href="voice.html">🎤 Voice Upload</a></li>
+                    <li><a href="reports.html">📄 Reports</a></li>
+                    <li><a href="history.html">📋 History</a></li>
+                    <li><a href="settings.html" style="background-color: var(--primary);">⚙️ Settings</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <div>
+                    <h2>Settings</h2>
+                    <p class="header-subtitle">Configure your preferences</p>
+                </div>
+            </header>
+
+            <!-- General Settings -->
+            <section class="upload-section">
+                <h3>⚙️ General Settings</h3>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px; border-bottom: 1px solid var(--border);">
+                    <div>
+                        <h4>Language</h4>
+                        <p style="color: var(--text-light); font-size: 12px; margin-top: 4px;">Choose your preferred language</p>
+                    </div>
+                    <select style="padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px;">
+                        <option>English</option>
+                        <option>Hindi</option>
+                        <option>Spanish</option>
+                        <option>French</option>
+                    </select>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px; border-bottom: 1px solid var(--border);">
+                    <div>
+                        <h4>Theme</h4>
+                        <p style="color: var(--text-light); font-size: 12px; margin-top: 4px;">Choose dark or light theme</p>
+                    </div>
+                    <select style="padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px;">
+                        <option>Light (Default)</option>
+                        <option>Dark</option>
+                        <option>Auto</option>
+                    </select>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px;">
+                    <div>
+                        <h4>Notifications</h4>
+                        <p style="color: var(--text-light); font-size: 12px; margin-top: 4px;">Receive notifications for uploads</p>
+                    </div>
+                    <input type="checkbox" checked style="width: 20px; height: 20px; cursor: pointer;">
+                </div>
+            </section>
+
+            <!-- File Settings -->
+            <section class="upload-section">
+                <h3>📁 File Settings</h3>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px; border-bottom: 1px solid var(--border);">
+                    <div>
+                        <h4>Auto-delete Files</h4>
+                        <p style="color: var(--text-light); font-size: 12px; margin-top: 4px;">Automatically delete files after 30 days</p>
+                    </div>
+                    <input type="checkbox" style="width: 20px; height: 20px; cursor: pointer;">
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px; border-bottom: 1px solid var(--border);">
+                    <div>
+                        <h4>Max File Size</h4>
+                        <p style="color: var(--text-light); font-size: 12px; margin-top: 4px;">Maximum file size for uploads</p>
+                    </div>
+                    <select style="padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px;">
+                        <option>25 MB</option>
+                        <option>50 MB (Default)</option>
+                        <option>100 MB</option>
+                    </select>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px;">
+                    <div>
+                        <h4>Keep Processing History</h4>
+                        <p style="color: var(--text-light); font-size: 12px; margin-top: 4px;">Save your processing history</p>
+                    </div>
+                    <input type="checkbox" checked style="width: 20px; height: 20px; cursor: pointer;">
+                </div>
+            </section>
+
+            <!-- API Settings -->
+            <section class="upload-section">
+                <h3>🔑 API Settings</h3>
+                <div style="padding: 16px; background: var(--bg-light); border-radius: 6px;">
+                    <h4>API Key</h4>
+                    <p style="color: var(--text-light); font-size: 12px; margin: 8px 0;">Your API key for programmatic access</p>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="password" value="sk_live_1234567890abcdef" readonly style="flex: 1; padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; background: white;">
+                        <button class="btn btn-secondary" onclick="copyToClipboard();">Copy</button>
+                        <button class="btn btn-secondary">Regenerate</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Danger Zone -->
+            <section class="upload-section" style="border-top: 2px solid var(--border);">
+                <h3 style="color: var(--danger);">🚨 Danger Zone</h3>
+                <div style="padding: 16px; background: rgba(239, 68, 68, 0.05); border-radius: 6px; border-left: 4px solid var(--danger);">
+                    <h4 style="color: var(--danger); margin-bottom: 12px;">Clear All Data</h4>
+                    <p style="color: var(--text-light); margin-bottom: 16px;">
+                        This will delete all your uploaded files and history. This action cannot be undone.
+                    </p>
+                    <button class="btn btn-danger" onclick="if(confirm('Are you sure? This cannot be undone.')) { alert('Data cleared'); }">
+                        Clear All Data
+                    </button>
+                </div>
+            </section>
+
+            <!-- Save Button -->
+            <div style="margin-top: 24px; display: flex; gap: 12px;">
+                <button class="btn btn-primary" onclick="alert('Settings saved!');">💾 Save Changes</button>
+                <button class="btn btn-secondary">Cancel</button>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function copyToClipboard() {
+            const input = document.querySelector('input[type="password"]');
+            const temp = document.createElement('input');
+            temp.value = input.value;
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand('copy');
+            document.body.removeChild(temp);
+            alert('API Key copied to clipboard!');
+        }
+    </script>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

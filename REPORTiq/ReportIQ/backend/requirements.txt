@@ -1,0 +1,39 @@
+# Web framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+
+# Request parsing
+python-multipart==0.0.6
+
+# Data validation
+pydantic==2.5.0
+pydantic-settings==2.1.0
+
+# Environment variables
+python-dotenv==1.0.0
+
+# Data processing
+pandas
+numpy
+openpyxl
+pdfminer.six
+
+# ML / Stats
+scikit-learn
+
+# Visualization
+matplotlib
+seaborn
+plotly
+
+# Database
+sqlalchemy
+
+# Templates
+jinja2
+
+# HTTP client
+requests
+
+# Voice transcription (local, no GPU needed)
+faster-whisper

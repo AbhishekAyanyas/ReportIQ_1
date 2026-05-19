@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+venv/*
+.venv/
+ENV/
+env/
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Node
+node_modules/
+
+# Reports and uploads
+ReportIQ/ReportIQ/static/uploads/
+
+# Ignore secrets
+*.env
+.env
+
+# OneDrive temp
+~$*
+
+# Pytest cache
+.pytest_cache/
+
+# Build
+build/
+dist/
+
+# Misc
+*.sqlite3

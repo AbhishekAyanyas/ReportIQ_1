@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports History - ReportIQ</title>
+    <link rel="stylesheet" href="/static/css/modern-style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <a href="/" class="logo">
+            <div class="logo-icon">✨</div>
+            <span>ReportIQ</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/visualizations">Analytics</a></li>
+            <li><a href="/reporthistory" class="active">Reports</a></li>
+        </ul>
+    </nav>
+
+    <!-- Reports Container -->
+    <div class="dashboard-container">
+        <!-- Page Header -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <div style="width: 48px; height: 48px; background: rgba(59, 130, 246, 0.2); border-radius: 12px; display: flex; align-items: center; justify-center; font-size: 1.5rem;">
+                    📚
+                </div>
+                <h2 style="font-size: 2rem; font-weight: bold; background: linear-gradient(135deg, #3B82F6, #06B6D4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Reports History</h2>
+            </div>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="stats-grid" style="margin-bottom: 2rem;">
+            <div class="stat-card">
+                <div class="stat-icon">📄</div>
+                <div class="stat-number" id="totalReportsCount">0</div>
+                <div class="stat-label">Total Reports</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">✅</div>
+                <div class="stat-number" id="completedCount">0</div>
+                <div class="stat-label">Completed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⏳</div>
+                <div class="stat-number" id="processingCount">0</div>
+                <div class="stat-label">Processing</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">❌</div>
+                <div class="stat-number" id="failedCount">0</div>
+                <div class="stat-label">Failed</div>
+            </div>
+        </div>
+
+        <!-- Reports Table Card -->
+        <div class="card">
+            <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 1.5rem;">
+                <h3 style="color: white; font-size: 1.3rem;">All Reports</h3>
+                <div style="display: flex; gap: 0.5rem;">
+                    <button onclick="filterReports('all')" class="filter-btn active" style="background: linear-gradient(135deg, #3B82F6, #06B6D4); color: white; border: none; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600; cursor: pointer;">All</button>
+                    <button onclick="filterReports('completed')" class="filter-btn" style="background: rgba(51, 65, 85, 0.5); color: #94A3B8; border: none; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600; cursor: pointer;">Completed</button>
+                    <button onclick="filterReports('processing')" class="filter-btn" style="background: rgba(51, 65, 85, 0.5); color: #94A3B8; border: none; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600; cursor: pointer;">Processing</button>
+                    <button onclick="filterReports('failed')" class="filter-btn" style="background: rgba(51, 65, 85, 0.5); color: #94A3B8; border: none; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600; cursor: pointer;">Failed</button>
+                </div>
+            </div>
+
+            <!-- Reports Table -->
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Report ID</th>
+                            <th>Upload Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reportsTableBody">
+                        <tr>
+                            <td colspan="5" style="text-align: center; padding: 3rem;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">📊</div>
+                                <div style="color: #94A3B8; font-size: 1.1rem; font-weight: 500;">No reports found</div>
+                                <div style="color: #64748B; font-size: 0.9rem; margin-top: 0.5rem;">Upload your first report to get started</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 5-Star Feedback Section -->
+        <div class="card" style="margin-top: 2rem;">
+            <div class="card-header">
+                <span class="card-icon">💬</span>
+                <h3>Rate Your Experience</h3>
+            </div>
+            
+            <p class="text-secondary" style="margin-bottom: 1.5rem;">
+                Help us improve ReportIQ by sharing your feedback and rating.
+            </p>
+
+            <!-- Inline 5-Star Rating -->
+            <div style="margin-bottom: 1.5rem;">
+                <div class="rating-container">
+                    <span style="color: white; font-weight: 600;">Your Rating:</span>
+                    <div class="stars-wrapper">
+                        <button class="star-btn" onclick="setRating(1)">☆</button>
+                        <button class="star-btn" onclick="setRating(2)">☆</button>
+                        <button class="star-btn" onclick="setRating(3)">☆</button>
+                        <button class="star-btn" onclick="setRating(4)">☆</button>
+                        <button class="star-btn" onclick="setRating(5)">☆</button>
+                    </div>
+                    <span class="rating-value" id="ratingValue">0/5</span>
+                </div>
+            </div>
+
+            <!-- Feedback Textarea -->
+            <textarea 
+                id="feedbackText"
+                placeholder="Share your thoughts, suggestions, or report issues..."
+                style="width: 100%; background: rgba(51, 65, 85, 0.5); color: white; padding: 1rem; border-radius: 12px; border: 1px solid rgba(59, 130, 246, 0.3); min-height: 120px; resize: vertical; outline: none; font-family: inherit;"
+            ></textarea>
+
+            <!-- Action Buttons -->
+            <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                <button 
+                    onclick="submitFeedback()" 
+                    class="btn-primary" 
+                    style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.5rem;"
+                >
+                    <span>🚀</span>
+                    <span>Submit Feedback</span>
+                </button>
+                <button 
+                    onclick="clearFeedback()" 
+                    class="btn-secondary"
+                    style="padding: 0.75rem 1.5rem;"
+                >
+                    Clear
+                </button>
+            </div>
+
+            <!-- Feedback Stats -->
+            <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(59, 130, 246, 0.2); display: flex; gap: 2rem;">
+                <div>
+                    <div style="color: #94A3B8; font-size: 0.85rem; margin-bottom: 0.25rem;">Average Rating</div>
+                    <div style="font-size: 1.8rem; font-weight: bold; background: linear-gradient(135deg, #3B82F6, #06B6D4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;" id="avgRating">0.0</div>
+                </div>
+                <div>
+                    <div style="color: #94A3B8; font-size: 0.85rem; margin-bottom: 0.25rem;">Total Ratings</div>
+                    <div style="font-size: 1.8rem; font-weight: bold; background: linear-gradient(135deg, #3B82F6, #06B6D4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;" id="totalRatings">0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+    <script>
+        let currentRating = 0;
+
+        function setRating(rating) {
+            currentRating = rating;
+            document.getElementById('ratingValue').textContent = `${rating}/5`;
+            
+            const stars = document.querySelectorAll('.star-btn');
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('active');
+                    star.textContent = '★';
+                } else {
+                    star.classList.remove('active');
+                    star.textContent = '☆';
+                }
+            });
+        }
+
+        function submitFeedback() {
+            const feedbackText = document.getElementById('feedbackText').value.trim();
+            
+            if (currentRating === 0) {
+                showNotification('Please select a rating! ⭐', 'error');
+                return;
+            }
+            
+            if (!feedbackText) {
+                showNotification('Please enter your feedback!', 'error');
+                return;
+            }
+
+            // Here you would send to backend
+            showNotification(`Thank you for your ${currentRating} star feedback! 🎉`, 'success');
+            clearFeedback();
+        }
+
+        function clearFeedback() {
+            currentRating = 0;
+            document.getElementById('feedbackText').value = '';
+            document.getElementById('ratingValue').textContent = '0/5';
+            
+            const stars = document.querySelectorAll('.star-btn');
+            stars.forEach(star => {
+                star.classList.remove('active');
+                star.textContent = '☆';
+            });
+        }
+
+        // Update statistics on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadReportHistory();
+        });
+    </script>
+</body>
+</html>

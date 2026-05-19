@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REPORTiq - Report Analysis</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        .data-preview-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 24px;
+            margin: 24px 0;
+        }
+
+        .data-preview-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border: 2px solid #e5e7eb;
+        }
+
+        .data-preview-card.raw {
+            border-color: #e5e7eb;
+        }
+
+        .data-preview-card.cleaned {
+            border-color: #10b981;
+        }
+
+        .preview-header {
+            padding: 20px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .data-preview-card.raw .preview-header {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+        }
+
+        .data-preview-card.cleaned .preview-header {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+        }
+
+        .preview-header-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .preview-header-text h2 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .preview-header-text p {
+            margin: 4px 0 0 0;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .preview-table-container {
+            max-height: 500px;
+            overflow-y: auto;
+            overflow-x: auto;
+        }
+
+        .preview-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .preview-table thead {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .data-preview-card.raw .preview-table thead {
+            background: #f3f4f6;
+        }
+
+        .data-preview-card.cleaned .preview-table thead {
+            background: #f0fdf4;
+        }
+
+        .preview-table th {
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .data-preview-card.cleaned .preview-table th {
+            color: #065f46;
+            border-bottom-color: #d1fae5;
+        }
+
+        .data-preview-card.raw .preview-table th {
+            color: #374151;
+        }
+
+        .preview-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+            color: #111827;
+        }
+
+        .data-preview-card.cleaned .preview-table td {
+            border-bottom-color: #d1fae5;
+        }
+
+        .preview-table tbody tr:nth-child(odd) {
+            background: white;
+        }
+
+        .preview-table tbody tr:nth-child(even) {
+            background: #f9fafb;
+        }
+
+        .data-preview-card.cleaned .preview-table tbody tr:nth-child(even) {
+            background: #f0fdf4;
+        }
+
+        .preview-table tbody tr:hover {
+            background: #f3f4f6 !important;
+        }
+
+        .data-preview-card.cleaned .preview-table tbody tr:hover {
+            background: #ecfdf5 !important;
+        }
+
+        .error-value {
+            color: #ef4444;
+            font-weight: 600;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .clean-value {
+            color: #047857;
+            font-weight: 600;
+        }
+
+        .issues-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 24px;
+            border: 2px solid #fca5a5;
+            margin: 24px 0;
+        }
+
+        .issues-card h3 {
+            margin: 0 0 16px 0;
+            font-size: 18px;
+            font-weight: 600;
+            color: #7f1d1d;
+        }
+
+        .issues-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+        }
+
+        .issue-box {
+            padding: 12px;
+            background: #fef2f2;
+            border-radius: 6px;
+            border-left: 4px solid #dc2626;
+        }
+
+        .issue-box p:first-child {
+            margin: 0 0 4px 0;
+            font-weight: 600;
+            color: #991b1b;
+        }
+
+        .issue-box p:last-child {
+            margin: 0;
+            font-size: 12px;
+            color: #7f1d1d;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .stat-box {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border: 2px solid #e5e7eb;
+        }
+
+        .stat-box p:first-child {
+            margin: 0;
+            font-size: 12px;
+            color: #6b7280;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .stat-box p:last-child {
+            margin: 8px 0 0 0;
+            font-size: 28px;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .stat-box.quality p:last-child {
+            color: #10b981;
+        }
+
+        .stat-box.issues p:last-child {
+            color: #dc2626;
+        }
+
+        @media (max-width: 768px) {
+            .data-preview-container {
+                grid-template-columns: 1fr;
+            }
+
+            .preview-table-container {
+                max-height: 400px;
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h1>📊 REPORTiq</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">🏠 Home</a></li>
+                    <li><a href="dashboard.html">📈 Dashboard</a></li>
+                    <li><a href="voice.html">🎤 Voice Upload</a></li>
+                    <li><a href="reports.html" style="background-color: var(--primary);">📄 Reports</a></li>
+                    <li><a href="history.html">📋 History</a></li>
+                    <li><a href="settings.html">⚙️ Settings</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <div>
+                    <h2>Report Analysis</h2>
+                    <p class="header-subtitle">Upload, analyze and clean your data intelligently</p>
+                </div>
+            </header>
+
+            <!-- Upload Section -->
+            <section class="upload-section">
+                <h3>📤 Upload Report File</h3>
+                <p style="color: var(--text-light); margin-bottom: 24px;">
+                    Upload documents for analysis. Supported formats: PDF, DOCX, TXT, XLSX (Max 50MB)
+                </p>
+
+                <div id="reportDropArea" class="upload-area">
+                    <div class="upload-icon">📄</div>
+                    <p class="upload-text">Drag your document here</p>
+                    <p class="upload-text-small">or</p>
+                    <input type="file" id="reportFile" accept=".pdf,.docx,.txt,.xlsx,.csv" style="display: none;">
+                    <button class="btn btn-primary" onclick="document.getElementById('reportFile').click();">
+                        Select File
+                    </button>
+                </div>
+
+                <div id="reportFileInfo" style="margin-top: 16px; display: none; padding: 12px; background: var(--bg-light); border-radius: 6px;">
+                    <p style="margin: 0;">Selected: <strong id="reportFileName"></strong></p>
+                    <p style="margin: 8px 0 0 0; font-size: 12px; color: var(--text-light);">Size: <span id="reportFileSize"></span></p>
+                </div>
+
+                <div class="btn-group" style="margin-top: 24px;">
+                    <button id="uploadReportBtn" class="btn btn-primary">🚀 Upload & Analyze</button>
+                    <button id="clearReportBtn" class="btn btn-secondary" onclick="clearReportFile();">Clear</button>
+                </div>
+            </section>
+
+            <!-- Data Preview Section -->
+            <section id="dataPreviewSection" class="hidden">
+                <!-- Raw vs Cleaned Data -->
+                <div class="data-preview-container">
+                    <!-- Raw Data Card -->
+                    <div class="data-preview-card raw">
+                        <div class="preview-header" onclick="toggleTable('raw')">
+                            <div class="preview-header-content">
+                                <span style="font-size: 24px;">📄</span>
+                                <div class="preview-header-text">
+                                    <h2>Raw Data Preview</h2>
+                                    <p>Original uploaded data before processing</p>
+                                </div>
+                            </div>
+                            <span id="rawToggle">▼</span>
+                        </div>
+                        <div id="rawTableContainer" class="preview-table-container">
+                            <table class="preview-table">
+                                <thead>
+                                    <tr>
+                                        <th>Month</th>
+                                        <th>Year</th>
+                                        <th>Revenue</th>
+                                        <th>Expenses</th>
+                                        <th>Customers</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="rawDataBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Cleaned Data Card -->
+                    <div class="data-preview-card cleaned">
+                        <div class="preview-header" onclick="toggleTable('cleaned')">
+                            <div class="preview-header-content">
+                                <span style="font-size: 24px;">✨</span>
+                                <div class="preview-header-text">
+                                    <h2>Cleaned Data Preview</h2>
+                                    <p>Processed and cleaned data ready for analysis</p>
+                                </div>
+                            </div>
+                            <span id="cleanedToggle">▼</span>
+                        </div>
+                        <div id="cleanedTableContainer" class="preview-table-container">
+                            <table class="preview-table">
+                                <thead>
+                                    <tr>
+                                        <th>Month</th>
+                                        <th>Year</th>
+                                        <th>Revenue</th>
+                                        <th>Expenses</th>
+                                        <th>Customers</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="cleanedDataBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Quality Issues -->
+                <div class="issues-card">
+                    <h3>🔍 Data Quality Issues Found (Auto-Fixed)</h3>
+                    <div class="issues-grid">
+                        <div class="issue-box">
+                            <p>❌ Invalid Currency Format</p>
+                            <p>Found: "11$4.0" → Fixed to: "114.0"</p>
+                        </div>
+                        <div class="issue-box">
+                            <p>❌ Negative Values</p>
+                            <p>Found: "-$3.0", "-$7.0" → Cleaned to positive</p>
+                        </div>
+                        <div class="issue-box">
+                            <p>❌ Missing Values</p>
+                            <p>Found: "N/A" → Marked as "Unknown"</p>
+                        </div>
+                        <div class="issue-box">
+                            <p>❌ Inconsistent Formatting</p>
+                            <p>Mixed formats → Standardized to ₹ format</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Statistics -->
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <p>TOTAL RECORDS</p>
+                        <p id="totalRecords">0</p>
+                    </div>
+                    <div class="stat-box">
+                        <p>ISSUES FIXED</p>
+                        <p id="issuesFixed">0</p>
+                    </div>
+                    <div class="stat-box quality">
+                        <p>DATA QUALITY</p>
+                        <p id="dataQuality">0%</p>
+                    </div>
+                    <div class="stat-box issues">
+                        <p>PROCESSING TIME</p>
+                        <p id="processingTime">0.0s</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analysis Types -->
+            <section class="upload-section">
+                <h3>🔍 Analysis Capabilities</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
+                    <div style="padding: 16px; background: var(--bg-light); border-radius: 6px;">
+                        <h4 style="color: var(--primary); margin-bottom: 8px;">📝 Data Cleaning</h4>
+                        <p style="font-size: 14px; color: var(--text-light);">Automatically fix formatting and missing values</p>
+                    </div>
+                    <div style="padding: 16px; background: var(--bg-light); border-radius: 6px;">
+                        <h4 style="color: var(--primary); margin-bottom: 8px;">📊 Data Validation</h4>
+                        <p style="font-size: 14px; color: var(--text-light);">Identify and highlight data quality issues</p>
+                    </div>
+                    <div style="padding: 16px; background: var(--bg-light); border-radius: 6px;">
+                        <h4 style="color: var(--primary); margin-bottom: 8px;">📈 Trend Analysis</h4>
+                        <p style="font-size: 14px; color: var(--text-light);">Discover patterns and trends in your data</p>
+                    </div>
+                    <div style="padding: 16px; background: var(--bg-light); border-radius: 6px;">
+                        <h4 style="color: var(--primary); margin-bottom: 8px;">💡 Insights</h4>
+                        <p style="font-size: 14px; color: var(--text-light);">Get actionable insights and recommendations</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Supported Formats -->
+            <section class="upload-section">
+                <h3>📋 Supported File Formats</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                    <div>
+                        <h4 style="color: var(--primary); margin-bottom: 12px;">Documents</h4>
+                        <ul style="list-style: none; color: var(--text-light);">
+                            <li>✓ PDF (.pdf)</li>
+                            <li>✓ Word (.docx, .doc)</li>
+                            <li>✓ Plain Text (.txt)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--primary); margin-bottom: 12px;">Data Files</h4>
+                        <ul style="list-style: none; color: var(--text-light);">
+                            <li>✓ Excel (.xlsx, .xls)</li>
+                            <li>✓ CSV (.csv)</li>
+                        </ul>
+                    </div>
+                </div>
+                <p style="color: var(--text-light); font-size: 12px; margin-top: 16px;">
+                    Maximum file size: 50MB
+                </p>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Sample data
+        const rawDataSample = [
+            { Month: 'Jan', Year: '2013', Revenue: '$710.0', Expenses: '$21.0', Customers: '$3.0' },
+            { Month: 'Feb', Year: '2013', Revenue: '$270.0', Expenses: '11$4.0', Customers: '-$3.0' },
+            { Month: 'Mar', Year: '2013', Revenue: '$860.0', Expenses: '$992.0', Customers: '201.0' },
+            { Month: 'Apr', Year: '2013', Revenue: '$330.0', Expenses: '$278.0', Customers: '$82.0' },
+            { Month: 'May', Year: '2013', Revenue: '$191.0', Expenses: '$312.0', Customers: '10.0' },
+            { Month: 'Jun', Year: '2013', Revenue: '$964.0', Expenses: '$10.0', Customers: '-$7.0' },
+            { Month: 'Jul', Year: '2013', Revenue: 'N/A', Expenses: '$234.0', Customers: '$45.0' },
+            { Month: 'Aug', Year: '2013', Revenue: '$525.0', Expenses: '$425.0', Customers: '$102.0' },
+            { Month: 'Sep', Year: '2013', Revenue: '$732.0', Expenses: '$502.0', Customers: '$234.0' },
+            { Month: 'Oct', Year: '2013', Revenue: '$456.0', Expenses: '$345.0', Customers: '$567.0' },
+        ];
+
+        const cleanedDataSample = [
+            { Month: 'Jan', Year: '2013', Revenue: '710.0', Expenses: '721.0', Customers: '532.0' },
+            { Month: 'Feb', Year: '2013', Revenue: '270.0', Expenses: '3134.0', Customers: '178.0' },
+            { Month: 'Mar', Year: '2013', Revenue: '860.0', Expenses: '992.0', Customers: '201.0' },
+            { Month: 'Apr', Year: '2013', Revenue: '330.0', Expenses: '278.0', Customers: '582.0' },
+            { Month: 'May', Year: '2013', Revenue: '191.0', Expenses: '312.0', Customers: '510.0' },
+            { Month: 'Jun', Year: '2013', Revenue: '964.0', Expenses: '510.0', Customers: '507.0' },
+            { Month: 'Jul', Year: '2013', Revenue: '1450.0', Expenses: '234.0', Customers: '645.0' },
+            { Month: 'Aug', Year: '2013', Revenue: '525.0', Expenses: '425.0', Customers: '102.0' },
+            { Month: 'Sep', Year: '2013', Revenue: '732.0', Expenses: '502.0', Customers: '234.0' },
+            { Month: 'Oct', Year: '2013', Revenue: '456.0', Expenses: '345.0', Customers: '567.0' },
+        ];
+
+        const reportFile = document.getElementById('reportFile');
+
+        // Populate tables
+        function populateTables() {
+            const rawBody = document.getElementById('rawDataBody');
+            const cleanedBody = document.getElementById('cleanedDataBody');
+
+            rawBody.innerHTML = rawDataSample.map(row => `
+                <tr>
+                    <td>${row.Month}</td>
+                    <td>${row.Year}</td>
+                    <td${row.Revenue === 'N/A' ? ' class="error-value"' : ''}>${row.Revenue}</td>
+                    <td${row.Expenses[0] !== '$' ? ' class="error-value"' : ''}>${row.Expenses}</td>
+                    <td${row.Customers.includes('-') ? ' class="error-value"' : ''}>${row.Customers}</td>
+                </tr>
+            `).join('');
+
+            cleanedBody.innerHTML = cleanedDataSample.map(row => `
+                <tr>
+                    <td>${row.Month}</td>
+                    <td>${row.Year}</td>
+                    <td class="clean-value">₹${row.Revenue}</td>
+                    <td class="clean-value">₹${row.Expenses}</td>
+                    <td class="clean-value">₹${row.Customers}</td>
+                </tr>
+            `).join('');
+
+            // Update stats
+            document.getElementById('totalRecords').textContent = rawDataSample.length;
+            document.getElementById('issuesFixed').textContent = '8';
+            document.getElementById('dataQuality').textContent = '95%';
+            document.getElementById('processingTime').textContent = '2.4s';
+        }
+
+        function toggleTable(type) {
+            const container = document.getElementById(type + 'TableContainer');
+            const toggle = document.getElementById(type + 'Toggle');
+            
+            if (container.style.display === 'none') {
+                container.style.display = 'block';
+                toggle.textContent = '▼';
+            } else {
+                container.style.display = 'none';
+                toggle.textContent = '▶';
+            }
+        }
+
+        // File handling
+        reportFile.addEventListener('change', () => {
+            if (reportFile.files.length > 0) {
+                const file = reportFile.files[0];
+                document.getElementById('reportFileName').textContent = file.name;
+                document.getElementById('reportFileSize').textContent = (file.size / 1024 / 1024).toFixed(2) + ' MB';
+                document.getElementById('reportFileInfo').style.display = 'block';
+            }
+        });
+
+        document.getElementById('uploadReportBtn').addEventListener('click', () => {
+            populateTables();
+            document.getElementById('dataPreviewSection').classList.remove('hidden');
+            document.querySelector('html').scrollTop = document.querySelector('.upload-section').offsetHeight + 100;
+        });
+
+        function clearReportFile() {
+            reportFile.value = '';
+            document.getElementById('reportFileInfo').style.display = 'none';
+            document.getElementById('dataPreviewSection').classList.add('hidden');
+        }
+
+        // Initialize on page load
+        window.addEventListener('load', () => {
+            // Pre-populate for demo
+            populateTables();
+        });
+    </script>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

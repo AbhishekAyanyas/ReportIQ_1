@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REPORTiq - History</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        .filter-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-section input,
+        .filter-section select {
+            padding: 10px 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .filter-section input {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-section input:focus,
+        .filter-section select:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .table-wrapper {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+
+        .table-header {
+            padding: 20px;
+            border-bottom: 2px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-header h3 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .live-badge {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .live-indicator {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: #ef4444;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table thead tr {
+            background: #f9fafb;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        table th {
+            padding: 16px;
+            text-align: left;
+            color: #6b7280;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        table td {
+            padding: 16px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        table tbody tr:hover {
+            background: #f9fafb;
+        }
+
+        .report-id {
+            font-family: 'Courier New', monospace;
+            color: #2563eb;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .revenue {
+            color: #059669;
+            font-weight: 600;
+        }
+
+        .customers {
+            color: #d97706;
+            font-weight: 600;
+        }
+
+        .timestamp {
+            color: #9ca3af;
+            font-size: 12px;
+        }
+
+        .delete-btn {
+            background: #fee2e2;
+            color: #dc2626;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .delete-btn:hover {
+            background: #fecaca;
+            color: #991b1b;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 48px 20px;
+            color: #9ca3af;
+        }
+
+        .empty-state p {
+            margin: 0 0 16px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-box h4 {
+            margin: 0 0 8px 0;
+            color: #6b7280;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .stat-box .value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2563eb;
+            margin: 0;
+        }
+
+        .stat-box .unit {
+            font-size: 12px;
+            color: #9ca3af;
+            margin: 4px 0 0 0;
+        }
+
+        @media (max-width: 768px) {
+            .filter-section {
+                flex-direction: column;
+            }
+
+            .filter-section input,
+            .filter-section select {
+                width: 100%;
+            }
+
+            .table-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h1>📊 REPORTiq</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">🏠 Home</a></li>
+                    <li><a href="dashboard.html">📈 Dashboard</a></li>
+                    <li><a href="voice.html">🎤 Voice Upload</a></li>
+                    <li><a href="reports.html">📄 Reports</a></li>
+                    <li><a href="history.html" style="background-color: var(--primary);">📋 History</a></li>
+                    <li><a href="settings.html">⚙️ Settings</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <div>
+                    <h2>Upload History</h2>
+                    <p class="header-subtitle">Real-time view of all your uploads</p>
+                </div>
+            </header>
+
+            <!-- Statistics -->
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <h4>📁 Total Files</h4>
+                    <p class="value" id="totalFiles">0</p>
+                    <p class="unit">Current Month</p>
+                </div>
+                <div class="stat-box">
+                    <h4>💰 Total Revenue</h4>
+                    <p class="value" id="statsRevenue">₹0</p>
+                    <p class="unit">This Month</p>
+                </div>
+                <div class="stat-box">
+                    <h4>👥 Total Customers</h4>
+                    <p class="value" id="statsCustomers">0</p>
+                    <p class="unit">This Month</p>
+                </div>
+                <div class="stat-box">
+                    <h4>📊 Avg Value</h4>
+                    <p class="value" id="avgValue">₹0</p>
+                    <p class="unit">Per Report</p>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="filter-section">
+                <input type="text" id="searchInput" placeholder="Search by filename or ID..." style="flex: 1;">
+                <select id="typeFilter">
+                    <option value="">All Types</option>
+                    <option value="voice">Voice Files</option>
+                    <option value="report">Reports</option>
+                </select>
+                <select id="timeFilter">
+                    <option value="">All Time (Current Month)</option>
+                    <option value="today">Today</option>
+                    <option value="week">This Week</option>
+                </select>
+            </div>
+
+            <!-- History Table -->
+            <div class="table-wrapper">
+                <div class="table-header">
+                    <h3>📋 All Uploads</h3>
+                    <span class="live-badge"><span class="live-indicator"></span>Auto-refresh every 5s</span>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>REPORT ID</th>
+                            <th>FILENAME</th>
+                            <th>DATE</th>
+                            <th>REVENUE</th>
+                            <th>CUSTOMERS</th>
+                            <th>TIME</th>
+                            <th style="text-align: center;">ACTION</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyTable">
+                        <tr>
+                            <td colspan="7" style="text-align: center; padding: 48px;">
+                                <div class="empty-state">
+                                    <p>📭 No uploads yet</p>
+                                    <p>Upload files to see them here</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let allReports = [];
+
+        // Generate real-time data
+        function loadData() {
+            const currentDate = new Date();
+            
+            // Generate reports for current month
+            const newReports = Array.from({ length: Math.floor(Math.random() * 8) + 3 }, (_, i) => ({
+                id: Math.random().toString(16).substr(2, 8).toUpperCase(),
+                filename: `Report_${Date.now()}_${i}.pdf`,
+                date: new Date(currentDate.getTime() - Math.random() * 30 * 24 * 60 * 60 * 1000).toLocaleDateString(),
+                revenue: Math.floor(Math.random() * 50000) + 10000,
+                customers: Math.floor(Math.random() * 500) + 50,
+                timestamp: new Date().toLocaleTimeString(),
+                type: Math.random() > 0.5 ? 'report' : 'voice'
+            }));
+
+            allReports = newReports;
+
+            // Update statistics
+            updateStats();
+
+            // Update table
+            renderTable(allReports);
+        }
+
+        // Update statistics
+        function updateStats() {
+            const totalRevenue = allReports.reduce((sum, r) => sum + r.revenue, 0);
+            const totalCustomers = allReports.reduce((sum, r) => sum + r.customers, 0);
+            const avgValue = allReports.length > 0 ? Math.floor(totalRevenue / allReports.length) : 0;
+
+            document.getElementById('totalFiles').textContent = allReports.length;
+            document.getElementById('statsRevenue').textContent = '₹' + (totalRevenue / 100000).toFixed(1) + 'L';
+            document.getElementById('statsCustomers').textContent = totalCustomers;
+            document.getElementById('avgValue').textContent = '₹' + avgValue.toLocaleString();
+        }
+
+        // Render table with filters
+        function renderTable(dataToShow) {
+            const tbody = document.getElementById('historyTable');
+            
+            if (dataToShow.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 48px;">
+                            <div class="empty-state">
+                                <p>📭 No uploads found</p>
+                                <p>Try adjusting your filters</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = dataToShow.map(report => `
+                <tr>
+                    <td><span class="report-id">${report.id}</span></td>
+                    <td>📄 ${report.filename}</td>
+                    <td>${report.date}</td>
+                    <td><span class="revenue">₹${report.revenue.toLocaleString()}</span></td>
+                    <td><span class="customers">${report.customers}</span></td>
+                    <td><span class="timestamp">${report.timestamp}</span></td>
+                    <td style="text-align: center;">
+                        <button class="delete-btn" onclick="deleteReport('${report.id}')">
+                            🗑️ Delete
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Apply filters
+        function applyFilters() {
+            let filtered = allReports;
+            
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            if (searchTerm) {
+                filtered = filtered.filter(r => 
+                    r.filename.toLowerCase().includes(searchTerm) ||
+                    r.id.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            const typeFilter = document.getElementById('typeFilter').value;
+            if (typeFilter) {
+                filtered = filtered.filter(r => r.type === typeFilter);
+            }
+
+            const timeFilter = document.getElementById('timeFilter').value;
+            if (timeFilter === 'today') {
+                const today = new Date().toLocaleDateString();
+                filtered = filtered.filter(r => r.date === today);
+            } else if (timeFilter === 'week') {
+                const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+                filtered = filtered.filter(r => new Date(r.date) >= weekAgo);
+            }
+
+            renderTable(filtered);
+        }
+
+        // Delete report
+        function deleteReport(id) {
+            allReports = allReports.filter(r => r.id !== id);
+            updateStats();
+            applyFilters();
+        }
+
+        // Event listeners
+        document.getElementById('searchInput').addEventListener('input', applyFilters);
+        document.getElementById('typeFilter').addEventListener('change', applyFilters);
+        document.getElementById('timeFilter').addEventListener('change', applyFilters);
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadData();
+            
+            // Auto-refresh every 5 seconds
+            setInterval(() => {
+                loadData();
+                applyFilters();
+            }, 5000);
+        });
+    </script>
+</body>
+</html>

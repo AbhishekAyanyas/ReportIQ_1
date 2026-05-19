@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizations - ReportIQ</title>
+    <link rel="stylesheet" href="/static/css/modern-style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <a href="/" class="logo">
+            <div class="logo-icon">✨</div>
+            <span>ReportIQ</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/visualizations" class="active">Analytics</a></li>
+            <li><a href="/reporthistory">Reports</a></li>
+        </ul>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="dashboard-container">
+        <div style="margin-bottom: 2rem;">
+            <h1 style="font-size: 2.5rem; font-weight: bold; background: linear-gradient(135deg, #3B82F6, #06B6D4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.5rem;">Data Visualizations</h1>
+            <p class="text-secondary">Explore your data through interactive charts and insights</p>
+        </div>
+
+        <!-- Visualizations Grid -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;" id="visualizationsContainer">
+            <!-- Empty State -->
+            <div class="card" style="grid-column: 1 / -1; text-align: center; padding: 4rem 2rem;">
+                <div style="width: 100px; height: 100px; background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(6, 182, 212, 0.2)); border-radius: 24px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 3rem;">
+                    📊
+                </div>
+                <h3 style="color: white; font-size: 1.8rem; margin-bottom: 1rem;">No Analytics Data Available</h3>
+                <p class="text-secondary" style="max-width: 500px; margin: 0 auto 2rem;">
+                    Upload your first report from the dashboard to see comprehensive analytics, charts, and data visualizations here.
+                </p>
+                <a href="/dashboard" class="btn-primary">
+                    Go to Dashboard
+                </a>
+            </div>
+        </div>
+
+        <!-- Data Preview Section -->
+        <div style="margin-top: 3rem;">
+            <h2 style="font-size: 1.8rem; font-weight: bold; color: white; margin-bottom: 1.5rem;">Data Preview</h2>
+            
+            <!-- Raw Data Card -->
+            <div class="card" style="margin-bottom: 1.5rem;">
+                <div class="card-header">
+                    <span class="card-icon">📄</span>
+                    <h3>Raw Data</h3>
+                </div>
+                <div id="rawDataPreview" style="overflow-x: auto;">
+                    <p class="text-secondary">Upload a file to see raw data preview</p>
+                </div>
+            </div>
+
+            <!-- Cleaned Data Card -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-icon">✨</span>
+                    <h3>Cleaned Data</h3>
+                </div>
+                <div id="cleanDataPreview" style="overflow-x: auto;">
+                    <p class="text-secondary">Upload a file to see cleaned data preview</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+    
+    <script>
+        function getCurrentReportId() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('id') || localStorage.getItem('currentReportId');
+        }
+    </script>
+    
+    <style>
+        /* Table Styles */
+        #rawDataPreview table,
+        #cleanDataPreview table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        
+        #rawDataPreview th,
+        #rawDataPreview td,
+        #cleanDataPreview th,
+        #cleanDataPreview td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+        }
+        
+        #rawDataPreview th,
+        #cleanDataPreview th {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3B82F6;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+        
+        #rawDataPreview tr:hover,
+        #cleanDataPreview tr:hover {
+            background: rgba(59, 130, 246, 0.05);
+        }
+    </style>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REPORTiq - Voice Upload</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h1>📊 REPORTiq</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">🏠 Home</a></li>
+                    <li><a href="dashboard.html">📈 Dashboard</a></li>
+                    <li><a href="voice.html" style="background-color: var(--primary);">🎤 Voice Upload</a></li>
+                    <li><a href="reports.html">📄 Reports</a></li>
+                    <li><a href="history.html">📋 History</a></li>
+                    <li><a href="settings.html">⚙️ Settings</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <div>
+                    <h2>Voice Transcription</h2>
+                    <p class="header-subtitle">Convert audio to text instantly</p>
+                </div>
+            </header>
+
+            <!-- Upload Section -->
+            <section class="upload-section">
+                <h3>📤 Upload Audio File</h3>
+                <p style="color: var(--text-light); margin-bottom: 24px;">
+                    Drag and drop your audio file or click to select. Supported formats: WAV, MP3, M4A, OGG, FLAC (Max 50MB)
+                </p>
+
+                <div id="voiceDropArea" class="upload-area">
+                    <div class="upload-icon">🎤</div>
+                    <p class="upload-text">Drag your audio file here</p>
+                    <p class="upload-text-small">or</p>
+                    <input type="file" id="voiceFile" accept="audio/*" style="display: none;">
+                    <button class="btn btn-primary" onclick="document.getElementById('voiceFile').click();">
+                        Select File
+                    </button>
+                </div>
+
+                <div id="fileInfo" style="margin-top: 16px; display: none; padding: 12px; background: var(--bg-light); border-radius: 6px;">
+                    <p style="margin: 0;">Selected: <strong id="fileName"></strong></p>
+                    <p style="margin: 8px 0 0 0; font-size: 12px; color: var(--text-light);">Size: <span id="fileSize"></span></p>
+                </div>
+
+                <div class="btn-group" style="margin-top: 24px;">
+                    <button id="uploadVoiceBtn" class="btn btn-primary">🚀 Upload & Transcribe</button>
+                    <button id="clearVoiceBtn" class="btn btn-secondary" onclick="clearVoiceFile();">Clear</button>
+                </div>
+            </section>
+
+            <!-- Response Section -->
+            <section class="response-section" id="responseSection" style="display: none;">
+                <h4>📝 Transcription Result</h4>
+                <pre id="responseOut"></pre>
+            </section>
+
+            <!-- Features -->
+            <section class="upload-section">
+                <h3>✨ Features</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+                    <div style="padding: 16px;">
+                        <h4 style="color: var(--primary); margin-bottom: 8px;">⚡ Fast Processing</h4>
+                        <p style="font-size: 14px; color: var(--text-light);">Quick and efficient audio transcription</p>
+                    </div>
+                    <div style="padding: 16px;">
+                        <h4 style="color: var(--primary); margin-bottom: 8px;">🎯 High Accuracy</h4>
+                        <p style="font-size: 14px; color: var(--text-light);">Powered by advanced AI models</p>
+                    </div>
+                    <div style="padding: 16px;">
+                        <h4 style="color: var(--primary); margin-bottom: 8px;">🌍 Multi-Language</h4>
+                        <p style="font-size: 14px; color: var(--text-light);">Supports multiple languages</p>
+                    </div>
+                    <div style="padding: 16px;">
+                        <h4 style="color: var(--primary); margin-bottom: 8px;">🔒 Secure</h4>
+                        <p style="font-size: 14px; color: var(--text-light);">Your files are processed securely</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tips -->
+            <section class="upload-section">
+                <h3>💡 Tips for Best Results</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="padding: 8px 0; color: var(--text-light);">✓ Use high-quality audio files</li>
+                    <li style="padding: 8px 0; color: var(--text-light);">✓ Minimize background noise</li>
+                    <li style="padding: 8px 0; color: var(--text-light);">✓ Speak clearly and at a normal pace</li>
+                    <li style="padding: 8px 0; color: var(--text-light);">✓ Files under 30 minutes work best</li>
+                </ul>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const voiceFile = document.getElementById('voiceFile');
+        const fileInfo = document.getElementById('fileInfo');
+        const fileName = document.getElementById('fileName');
+        const fileSize = document.getElementById('fileSize');
+        const responseSection = document.getElementById('responseSection');
+
+        // Show file info when file is selected
+        voiceFile.addEventListener('change', () => {
+            if (voiceFile.files.length > 0) {
+                const file = voiceFile.files[0];
+                fileName.textContent = file.name;
+                fileSize.textContent = (file.size / 1024 / 1024).toFixed(2) + ' MB';
+                fileInfo.style.display = 'block';
+            }
+        });
+
+        function clearVoiceFile() {
+            voiceFile.value = '';
+            fileInfo.style.display = 'none';
+            responseSection.style.display = 'none';
+        }
+
+        // Override response display
+        const originalSetResponseOutput = window.setResponseOutput;
+        window.setResponseOutput = function(message) {
+            if (responseSection && message) {
+                responseSection.style.display = 'block';
+                document.getElementById('responseOut').textContent = message;
+            }
+        };
+    </script>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

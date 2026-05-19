@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Summary - ReportIQ</title>
+    <link rel="stylesheet" href="/static/css/modern-style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #667eea;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin: 10px 0;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.95em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .chart-container {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .chart-container h2 {
+            margin-top: 0;
+            color: #333;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 15px;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 400px;
+            margin-bottom: 20px;
+        }
+
+        .chart-wrapper-small {
+            position: relative;
+            height: 300px;
+            margin-bottom: 20px;
+        }
+
+        .file-types-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .file-type-badge {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .file-type-badge .count {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .file-type-badge .type {
+            color: #666;
+            margin-top: 5px;
+            font-size: 0.9em;
+        }
+
+        .downloads-list {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .downloads-list h2 {
+            margin-top: 0;
+            color: #333;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 15px;
+        }
+
+        .download-item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            display: grid;
+            grid-template-columns: 1fr 150px 150px;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .download-item:last-child {
+            border-bottom: none;
+        }
+
+        .download-item:hover {
+            background: #f9f9f9;
+            border-radius: 5px;
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .file-icon {
+            width: 40px;
+            height: 40px;
+            background: #667eea;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.8em;
+        }
+
+        .file-details h4 {
+            margin: 0;
+            color: #333;
+        }
+
+        .file-details p {
+            margin: 5px 0 0 0;
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        .download-size {
+            text-align: right;
+            color: #666;
+        }
+
+        .download-date {
+            text-align: right;
+            color: #666;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .empty-state svg {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.95em;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+        }
+
+        .btn-danger {
+            background: #f56565;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #e53e3e;
+        }
+
+        @media (max-width: 768px) {
+            .download-item {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chart-wrapper {
+                height: 300px;
+            }
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #667eea;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .info-box {
+            background: #e6f2ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>📊 Download Summary</h1>
+            <p>Track and analyze all file downloads from your ReportIQ account</p>
+        </div>
+
+        <!-- Info Box -->
+        <div class="info-box">
+            <strong>ℹ️ Note:</strong> This page displays comprehensive download statistics and recent download activity.
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="btn btn-primary" onclick="loadSummary()">🔄 Refresh Data</button>
+            <button class="btn btn-danger" onclick="clearDownloads()">🗑️ Clear History</button>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loading" style="display: none;" class="loading">
+            <div class="spinner"></div>
+            <p>Loading download summary...</p>
+        </div>
+
+        <!-- Content -->
+        <div id="content" style="display: none;">
+            <!-- Statistics Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Total Downloads</div>
+                    <div class="stat-value" id="totalDownloads">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Unique Files</div>
+                    <div class="stat-value" id="uniqueFiles">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Total Size</div>
+                    <div class="stat-value" id="totalSize">0 MB</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Avg Downloads/File</div>
+                    <div class="stat-value" id="avgDownloads">0</div>
+                </div>
+            </div>
+
+            <!-- File Types Distribution -->
+            <div class="chart-container">
+                <h2>📁 File Types Distribution</h2>
+                <div id="fileTypesList" class="file-types-grid"></div>
+            </div>
+
+            <!-- Downloads by Date Chart -->
+            <div class="chart-container" id="dateChartContainer" style="display: none;">
+                <h2>📈 Downloads Over Time</h2>
+                <div class="chart-wrapper">
+                    <canvas id="downloadsChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Most Downloaded Files -->
+            <div class="chart-container">
+                <h2>🏆 Top Downloaded Files</h2>
+                <div class="chart-wrapper-small">
+                    <canvas id="topFilesChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Recent Downloads List -->
+            <div class="downloads-list">
+                <h2>📥 Recent Downloads</h2>
+                <div id="recentDownloadsList"></div>
+            </div>
+        </div>
+
+        <!-- No Data State -->
+        <div id="noData" style="display: none;" class="no-data">
+            <p>No downloads recorded yet. Downloads will appear here as files are downloaded from the system.</p>
+        </div>
+    </div>
+
+    <script>
+        // Global chart instances
+        let downloadsChart = null;
+        let topFilesChart = null;
+
+        // Load summary on page load
+        document.addEventListener('DOMContentLoaded', loadSummary);
+
+        async function loadSummary() {
+            const loading = document.getElementById('loading');
+            const content = document.getElementById('content');
+            const noData = document.getElementById('noData');
+
+            loading.style.display = 'block';
+            content.style.display = 'none';
+            noData.style.display = 'none';
+
+            try {
+                const response = await fetch('/api/download/summary');
+                const data = await response.json();
+
+                if (data.status === 'error') {
+                    showError(data.message);
+                    return;
+                }
+
+                if (data.total_downloads === 0) {
+                    loading.style.display = 'none';
+                    noData.style.display = 'block';
+                    return;
+                }
+
+                // Update statistics
+                document.getElementById('totalDownloads').textContent = data.total_downloads;
+                document.getElementById('uniqueFiles').textContent = data.unique_files;
+                document.getElementById('totalSize').textContent = data.total_size_mb + ' MB';
+                document.getElementById('avgDownloads').textContent = 
+                    (data.total_downloads / data.unique_files).toFixed(1);
+
+                // File Types Distribution
+                displayFileTypes(data.file_types);
+
+                // Downloads by Date (if data exists)
+                if (Object.keys(data.downloads_by_date).length > 0) {
+                    displayDownloadsChart(data.downloads_by_date);
+                    document.getElementById('dateChartContainer').style.display = 'block';
+                }
+
+                // Most Downloaded Files
+                displayTopFilesChart(data.most_downloaded);
+
+                // Recent Downloads List
+                displayRecentDownloads(data.recent_downloads);
+
+                loading.style.display = 'none';
+                content.style.display = 'block';
+
+            } catch (error) {
+                showError('Failed to load download summary: ' + error.message);
+            }
+        }
+
+        function displayFileTypes(fileTypes) {
+            const container = document.getElementById('fileTypesList');
+            container.innerHTML = '';
+
+            for (const [type, count] of Object.entries(fileTypes)) {
+                const badge = document.createElement('div');
+                badge.className = 'file-type-badge';
+                badge.innerHTML = `
+                    <div class="count">${count}</div>
+                    <div class="type">${type || 'Unknown'}</div>
+                `;
+                container.appendChild(badge);
+            }
+        }
+
+        function displayDownloadsChart(downloadsByDate) {
+            const ctx = document.getElementById('downloadsChart').getContext('2d');
+
+            // Destroy existing chart if it exists
+            if (downloadsChart) {
+                downloadsChart.destroy();
+            }
+
+            const dates = Object.keys(downloadsByDate).sort();
+            const counts = dates.map(date => downloadsByDate[date]);
+
+            downloadsChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dates,
+                    datasets: [{
+                        label: 'Downloads per Day',
+                        data: counts,
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: '#667eea',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        pointRadius: 5,
+                        pointHoverRadius: 7
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function displayTopFilesChart(mostDownloaded) {
+            const ctx = document.getElementById('topFilesChart').getContext('2d');
+
+            // Destroy existing chart if it exists
+            if (topFilesChart) {
+                topFilesChart.destroy();
+            }
+
+            const fileNames = mostDownloaded.slice(0, 10).map(f => f.file_name);
+            const counts = mostDownloaded.slice(0, 10).map(f => f.download_count);
+
+            topFilesChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: fileNames,
+                    datasets: [{
+                        label: 'Download Count',
+                        data: counts,
+                        backgroundColor: [
+                            '#667eea',
+                            '#764ba2',
+                            '#f093fb',
+                            '#4facfe',
+                            '#00f2fe',
+                            '#43e97b',
+                            '#fa709a',
+                            '#fee140',
+                            '#30b0fe',
+                            '#ff6e7f'
+                        ],
+                        borderRadius: 5,
+                        borderSkipped: false
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function displayRecentDownloads(recentDownloads) {
+            const container = document.getElementById('recentDownloadsList');
+            container.innerHTML = '';
+
+            if (recentDownloads.length === 0) {
+                container.innerHTML = '<div class="no-data">No recent downloads</div>';
+                return;
+            }
+
+            recentDownloads.forEach(download => {
+                const fileType = download.file_type || 'FILE';
+                const sizeInMB = (download.file_size / (1024 * 1024)).toFixed(2);
+
+                const item = document.createElement('div');
+                item.className = 'download-item';
+                item.innerHTML = `
+                    <div class="file-info">
+                        <div class="file-icon">${fileType.substring(0, 3).toUpperCase()}</div>
+                        <div class="file-details">
+                            <h4>${download.file_name}</h4>
+                            <p>${fileType} • ${sizeInMB} MB</p>
+                        </div>
+                    </div>
+                    <div class="download-size">${sizeInMB} MB</div>
+                    <div class="download-date">${download.downloaded_at}</div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        async function clearDownloads() {
+            if (!confirm('Are you sure you want to clear all download history? This action cannot be undone.')) {
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/download/clear', { method: 'DELETE' });
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    alert('Download history cleared successfully!');
+                    loadSummary();
+                } else {
+                    showError(data.message);
+                }
+            } catch (error) {
+                showError('Failed to clear history: ' + error.message);
+            }
+        }
+
+        function showError(message) {
+            const loading = document.getElementById('loading');
+            const content = document.getElementById('content');
+            const noData = document.getElementById('noData');
+
+            loading.style.display = 'none';
+            content.style.display = 'none';
+            noData.style.display = 'block';
+            noData.innerHTML = `<p style="color: #f56565; font-weight: bold;">⚠️ Error: ${message}</p>`;
+        }
+    </script>
+</body>
+</html>

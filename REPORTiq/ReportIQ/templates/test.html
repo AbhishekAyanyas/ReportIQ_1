@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReportIQ - Setup Test</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0F1722, #1A2332);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            background: #232F3E;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #4A90E2;
+            margin-bottom: 1rem;
+        }
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #1A2332;
+            border-radius: 8px;
+        }
+        .success { border-left: 4px solid #4CAF50; }
+        .pending { border-left: 4px solid #FF9800; }
+        .error { border-left: 4px solid #F44336; }
+        button {
+            background: #4A90E2;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+        }
+        button:hover {
+            background: #357ABD;
+        }
+        .links {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #2C3E50;
+        }
+        .links a {
+            display: block;
+            color: #4A90E2;
+            text-decoration: none;
+            padding: 0.5rem;
+            margin: 0.25rem 0;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+        .links a:hover {
+            background: #1A2332;
+        }
+        #result {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #1A2332;
+            border-radius: 8px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 ReportIQ Setup Test</h1>
+        <p>This page tests if your ReportIQ installation is working correctly.</p>
+        
+        <div class="status success">
+            <span>✅</span>
+            <div>
+                <strong>Frontend Files</strong><br>
+                <small>All HTML, CSS, and JS files are in place</small>
+            </div>
+        </div>
+        
+        <div class="status pending" id="backendStatus">
+            <span>⏳</span>
+            <div>
+                <strong>Backend Connection</strong><br>
+                <small>Testing API connection...</small>
+            </div>
+        </div>
+        
+        <button onclick="testBackend()">Test Backend API</button>
+        
+        <div id="result"></div>
+        
+        <div class="links">
+            <h3>Quick Links:</h3>
+            <a href="/">🏠 Home Page</a>
+            <a href="/dashboard">📊 Dashboard</a>
+            <a href="/visualizations">📈 Visualizations</a>
+            <a href="/reporthistory">📋 Reports History</a>
+            <a href="/health">💚 Health Check API</a>
+        </div>
+    </div>
+
+    <script>
+        // Test backend on page load
+        window.addEventListener('load', testBackend);
+
+        async function testBackend() {
+            const statusDiv = document.getElementById('backendStatus');
+            const resultDiv = document.getElementById('result');
+            
+            try {
+                const response = await fetch('/health');
+                const data = await response.json();
+                
+                if (response.ok) {
+                    statusDiv.className = 'status success';
+                    statusDiv.innerHTML = `
+                        <span>✅</span>
+                        <div>
+                            <strong>Backend Connection</strong><br>
+                            <small>API is running: ${data.app_name} v${data.version}</small>
+                        </div>
+                    `;
+                    
+                    resultDiv.style.display = 'block';
+                    resultDiv.innerHTML = `
+                        <h4 style="color: #4CAF50;">✅ All Systems Operational</h4>
+                        <p>Your ReportIQ installation is working perfectly!</p>
+                        <pre style="background: #0F1722; padding: 1rem; border-radius: 4px; overflow-x: auto;">${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                } else {
+                    throw new Error('Backend returned non-OK status');
+                }
+            } catch (error) {
+                statusDiv.className = 'status error';
+                statusDiv.innerHTML = `
+                    <span>❌</span>
+                    <div>
+                        <strong>Backend Connection Failed</strong><br>
+                        <small>Make sure the backend server is running</small>
+                    </div>
+                `;
+                
+                resultDiv.style.display = 'block';
+                resultDiv.innerHTML = `
+                    <h4 style="color: #F44336;">❌ Backend Not Running</h4>
+                    <p>Please start the backend server:</p>
+                    <pre style="background: #0F1722; padding: 1rem; border-radius: 4px; overflow-x: auto;">python -m uvicorn backend.main:app --reload --host 127.0.0.1 --port 8000</pre>
+                    <p><small>Error: ${error.message}</small></p>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

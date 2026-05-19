@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REPORTiq - Dashboard</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h1>📊 REPORTiq</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">🏠 Home</a></li>
+                    <li><a href="dashboard.html" style="background-color: var(--primary);">📈 Dashboard</a></li>
+                    <li><a href="visualizations.html">📊 Visualizations</a></li>
+                    <li><a href="voice.html">🎤 Voice Upload</a></li>
+                    <li><a href="reports.html">📄 Reports</a></li>
+                    <li><a href="history.html">📋 History</a></li>
+                    <li><a href="settings.html">⚙️ Settings</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <div>
+                    <h2>Dashboard</h2>
+                    <p class="header-subtitle">
+                        <i class="fas fa-chart-line"></i>
+                        Real-time Analytics & Metrics
+                    </p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px; padding: 12px 18px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 10px; text-align: center; backdrop-filter: blur(10px);">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span class="live-indicator"></span>
+                        <span style="fontWeight: '700'; color: '#10b981'; fontSize: '12px';">LIVE</span>
+                    </div>
+                    <p style="margin: 0; fontSize: '11px'; color: '#94a3b8'; fontWeight: '500'; text-align: left;" id="lastUpdate">Just now</p>
+                </div>
+            </header>
+
+            <!-- Stats Cards -->
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <div class="stat-card-content">
+                        <div>
+                            <p class="stat-label">💰 Total Revenue</p>
+                            <p class="stat-value" id="totalRevenue">₹0</p>
+                            <p class="stat-unit">Current Month</p>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-rupee-sign"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-content">
+                        <div>
+                            <p class="stat-label">👥 Total Customers</p>
+                            <p class="stat-value" id="totalCustomers">0</p>
+                            <p class="stat-unit">This Month</p>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-content">
+                        <div>
+                            <p class="stat-label">📊 Avg Revenue</p>
+                            <p class="stat-value" id="avgRevenue">₹0</p>
+                            <p class="stat-unit">Per Report</p>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-content">
+                        <div>
+                            <p class="stat-label">📈 Growth</p>
+                            <p class="stat-value" id="activeReports">0%</p>
+                            <p class="stat-unit">This Period</p>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="two-column">
+                <div class="chart-container">
+                    <h3>
+                        <i class="fas fa-bolt" style="color: var(--primary);"></i>
+                        Revenue Trend
+                    </h3>
+                    <canvas id="revenueChart"></canvas>
+                </div>
+
+                <div class="chart-container">
+                    <h3>
+                        <i class="fas fa-users" style="color: var(--secondary);"></i>
+                        Customer Growth
+                    </h3>
+                    <canvas id="customerChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Live Reports Table -->
+            <div class="table-wrapper">
+                <div class="table-header">
+                    <h3>
+                        <i class="fas fa-calendar"></i>
+                        Live Reports
+                    </h3>
+                    <div class="filter-group">
+                        <button class="filter-btn active" data-filter="all">All Reports</button>
+                        <button class="filter-btn" data-filter="success">✓ Success</button>
+                        <button class="filter-btn" data-filter="pending">⏳ Pending</button>
+                    </div>
+                </div>
+                <div class="table-scroll">
+                    <table id="reportsTable">
+                        <thead>
+                            <tr>
+                                <th>REPORT ID</th>
+                                <th>FILENAME</th>
+                                <th>DATE</th>
+                                <th>REVENUE</th>
+                                <th>CUSTOMERS</th>
+                                <th>TIME</th>
+                                <th>STATUS</th>
+                                <th style="text-align: center;">ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="8" style="text-align: center; padding: 0;">
+                                    <div class="empty-state">
+                                        <div class="empty-state-icon">📭</div>
+                                        <p>No reports yet</p>
+                                        <p style="opacity: 0.7;">Upload files to see real-time data</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <section class="upload-section" style="margin-top: 24px;">
+                <h3>🚀 Quick Actions</h3>
+                <div class="btn-group">
+                    <a href="voice.html" class="btn btn-primary">
+                        <i class="fas fa-microphone"></i>
+                        Upload Voice
+                    </a>
+                    <a href="reports.html" class="btn btn-primary">
+                        <i class="fas fa-file-upload"></i>
+                        Upload Report
+                    </a>
+                    <a href="history.html" class="btn btn-secondary">
+                        <i class="fas fa-history"></i>
+                        View History
+                    </a>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        let revenueChart, customerChart;
+        let reports = [];
+        let allReports = [];
+        let currentFilter = 'all';
+
+        // Initialize charts
+        function initCharts() {
+            const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+            revenueChart = new Chart(revenueCtx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Revenue',
+                        data: [],
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: '#3b82f6',
+                        pointBorderColor: '#0f172a',
+                        pointBorderWidth: 2,
+                        pointRadius: 5,
+                        pointHoverRadius: 7
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { 
+                            display: true,
+                            labels: { color: '#e2e8f0' }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return '₹' + (value / 1000).toFixed(0) + 'K';
+                                },
+                                color: '#94a3b8'
+                            },
+                            grid: { color: 'rgba(51, 65, 85, 0.2)' }
+                        },
+                        x: {
+                            ticks: { color: '#94a3b8' },
+                            grid: { color: 'rgba(51, 65, 85, 0.2)' }
+                        }
+                    }
+                }
+            });
+
+            const customerCtx = document.getElementById('customerChart').getContext('2d');
+            customerChart = new Chart(customerCtx, {
+                type: 'bar',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Customers',
+                        data: [],
+                        backgroundColor: '#10b981',
+                        borderRadius: 6,
+                        borderSkipped: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { 
+                            display: true,
+                            labels: { color: '#e2e8f0' }
+                        }
+                    },
+                    scales: {
+                        y: { 
+                            beginAtZero: true,
+                            ticks: { color: '#94a3b8' },
+                            grid: { color: 'rgba(51, 65, 85, 0.2)' }
+                        },
+                        x: {
+                            ticks: { color: '#94a3b8' },
+                            grid: { color: 'rgba(51, 65, 85, 0.2)' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Generate real-time data
+        function generateData() {
+            const currentDate = new Date();
+
+            allReports = Array.from({ length: Math.floor(Math.random() * 5) + 3 }, (_, i) => ({
+                id: Math.random().toString(16).substr(2, 8).toUpperCase(),
+                filename: `Report_${Date.now()}_${i}.pdf`,
+                date: new Date(currentDate.getTime() - Math.random() * 24 * 60 * 60 * 1000).toLocaleDateString(),
+                revenue: Math.floor(Math.random() * 50000) + 10000,
+                customers: Math.floor(Math.random() * 500) + 50,
+                timestamp: new Date().toLocaleTimeString(),
+                status: Math.random() > 0.3 ? 'success' : 'pending'
+            }));
+
+            updateFilteredReports();
+
+            const totalRevenue = allReports.reduce((sum, r) => sum + r.revenue, 0);
+            const totalCustomers = allReports.reduce((sum, r) => sum + r.customers, 0);
+            const avgRevenue = allReports.length > 0 ? Math.floor(totalRevenue / allReports.length) : 0;
+
+            document.getElementById('totalRevenue').textContent = '₹' + (totalRevenue / 100000).toFixed(1) + 'L';
+            document.getElementById('totalCustomers').textContent = totalCustomers;
+            document.getElementById('avgRevenue').textContent = '₹' + avgRevenue.toLocaleString();
+            document.getElementById('activeReports').textContent = Math.floor(Math.random() * 20) + 5 + '%';
+
+            document.getElementById('lastUpdate').textContent = 'Just now';
+
+            updateTable();
+            updateCharts();
+        }
+
+        // Update filtered reports
+        function updateFilteredReports() {
+            if (currentFilter === 'all') {
+                reports = allReports;
+            } else {
+                reports = allReports.filter(r => r.status === currentFilter);
+            }
+        }
+
+        // Update table
+        function updateTable() {
+            const tbody = document.querySelector('table tbody');
+            
+            if (reports.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="8" style="text-align: center; padding: 0;">
+                            <div class="empty-state">
+                                <div class="empty-state-icon">📭</div>
+                                <p>No reports found</p>
+                                <p style="opacity: 0.7;">Upload files to see real-time data</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = reports.map(report => `
+                <tr>
+                    <td><span class="report-id">${report.id}</span></td>
+                    <td>📄 ${report.filename}</td>
+                    <td>${report.date}</td>
+                    <td><span class="revenue">₹${report.revenue.toLocaleString()}</span></td>
+                    <td><span class="customers">${report.customers}</span></td>
+                    <td>
+                        <span class="timestamp">
+                            <i class="fas fa-clock"></i>
+                            ${report.timestamp}
+                        </span>
+                    </td>
+                    <td>
+                        <span class="status-badge status-${report.status}">
+                            ${report.status === 'success' ? '<i class="fas fa-check-circle"></i>' : '<i class="fas fa-clock"></i>'}
+                            ${report.status}
+                        </span>
+                    </td>
+                    <td style="text-align: center;">
+                        <button class="delete-btn" onclick="deleteReport('${report.id}')">
+                            <i class="fas fa-trash"></i>
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Update charts
+        function updateCharts() {
+            if (allReports.length === 0) return;
+
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+            const revenueData = months.map(() => Math.floor(Math.random() * 100000) + 50000);
+            const customerData = months.map(() => Math.floor(Math.random() * 2000) + 1000);
+
+            revenueChart.data.labels = months;
+            revenueChart.data.datasets[0].data = revenueData;
+            revenueChart.update('none');
+
+            customerChart.data.labels = months;
+            customerChart.data.datasets[0].data = customerData;
+            customerChart.update('none');
+        }
+
+        // Delete report
+        function deleteReport(id) {
+            allReports = allReports.filter(r => r.id !== id);
+            updateFilteredReports();
+            updateTable();
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            initCharts();
+            generateData();
+            
+            // Filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentFilter = this.dataset.filter;
+                    updateFilteredReports();
+                    updateTable();
+                });
+            });
+            
+            // Auto-refresh every 5 seconds
+            setInterval(generateData, 5000);
+        });
+    </script>
+</body>
+</html>
